@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+node_modules/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+coverage/
+*.duckdb
+*.parquet
+.DS_Store
