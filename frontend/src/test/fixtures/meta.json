@@ -1,0 +1,70 @@
+{
+  "data": {
+    "data_version": "c589a65ee65e",
+    "fetched_at": "2026-10-24T23:32:17+00:00",
+    "built_at": "2026-10-24T23:32:38+00:00",
+    "source": "https://data.elexon.co.uk/bmrs/api/v1",
+    "forecast_runs": 520,
+    "forecast_rows": 37960,
+    "actual_rows": 3024,
+    "forecast_publish_first": "2025-11-29T02:30:00Z",
+    "forecast_publish_last": "2026-02-01T22:30:00Z",
+    "actual_first": "2025-12-01T00:00:00Z",
+    "actual_last": "2026-02-01T23:30:00Z",
+    "capacity_proxy_mw": 18382.0,
+    "auctions": [
+      {
+        "id": "n2ex_da",
+        "name": "N2EX Day-Ahead",
+        "venue": "Nord Pool",
+        "product": "Hourly",
+        "gate_local": "09:50",
+        "source": "https://support.nordpoolgroup.com/support/solutions/articles/8000088463",
+        "source_quality": "primary"
+      },
+      {
+        "id": "epex_da_60",
+        "name": "EPEX GB Day-Ahead (60 min)",
+        "venue": "EPEX SPOT",
+        "product": "Hourly",
+        "gate_local": "09:20",
+        "source": "https://www.spglobal.com/commodity-insights/en/pricing-benchmarks/our-methodology/subscriber-notes/120920-platts-to-amend-uk-day-ahead-power-assessments-timing-from-jan-4",
+        "source_quality": "secondary"
+      },
+      {
+        "id": "epex_da_30",
+        "name": "EPEX GB Half-Hourly Auction",
+        "venue": "EPEX SPOT",
+        "product": "Half-hourly",
+        "gate_local": "15:30",
+        "source": "https://www.epexspot.com/sites/default/files/download_center_files/21-03-09_Trading%20Brochure.pdf",
+        "source_quality": "primary"
+      }
+    ],
+    "scopes": [
+      {
+        "id": "decisions_jan_2026",
+        "label": "Decisions made in January 2026",
+        "description": "Gate closures on 1-31 Jan 2026, i.e. delivery days 2 Jan - 1 Feb.",
+        "delivery_first": "2026-01-02",
+        "delivery_last": "2026-02-01"
+      },
+      {
+        "id": "delivery_jan_2026",
+        "label": "Delivery in January 2026",
+        "description": "Delivery days 1-31 Jan 2026 (decisions 31 Dec - 30 Jan).",
+        "delivery_first": "2026-01-01",
+        "delivery_last": "2026-01-31"
+      }
+    ],
+    "default_scope": "decisions_jan_2026",
+    "matching_rules": ["hour_mean", "on_the_hour"],
+    "trailing_days": 28,
+    "max_horizon_h": 48
+  },
+  "meta": {
+    "data_version": "c589a65ee65e",
+    "generated_at": "2026-10-25T00:23:32.203561Z",
+    "params": {}
+  }
+}

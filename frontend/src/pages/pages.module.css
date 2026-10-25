@@ -1,0 +1,189 @@
+/* Shared page-level layout helpers. */
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+
+.span2 {
+  grid-column: span 2;
+}
+
+@media (max-width: 960px) {
+  .span2 {
+    grid-column: auto;
+  }
+}
+
+.runGrid {
+  align-items: start;
+}
+
+.runHeadline {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 18px;
+}
+
+@media (max-width: 720px) {
+  .runHeadline {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+}
+
+.chartToggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.sliderField {
+  flex: 1 1 320px;
+  max-width: 520px;
+}
+
+.timeInput {
+  height: 36px;
+  padding: 0 12px;
+  border-radius: var(--radius-s);
+  border: 1px solid var(--border-strong);
+  background: var(--surface-2);
+}
+
+.pillRow,
+.legendRow {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.modelCell {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modelCell i {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+}
+
+/* contingency table */
+.contingency {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 6px;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+.contingency th {
+  font-weight: 500;
+  font-size: 12.5px;
+  color: var(--text-muted);
+  text-align: left;
+}
+
+.contingency td {
+  padding: 18px 14px;
+  border-radius: var(--radius-m);
+  background: var(--surface-2);
+  font-weight: 600;
+}
+
+.contingency td[data-tone='good'] {
+  box-shadow: inset 3px 0 0 var(--status-good);
+}
+.contingency td[data-tone='bad'] {
+  box-shadow: inset 3px 0 0 var(--status-critical);
+}
+.contingency td[data-tone='warn'] {
+  box-shadow: inset 3px 0 0 var(--status-warning);
+}
+
+/* quality */
+.hash {
+  font-size: 22px;
+}
+
+.checks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.checks li {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  align-items: start;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.checks li:last-child {
+  border-bottom: 0;
+}
+
+.checks strong {
+  display: block;
+}
+
+.checkResult {
+  display: block;
+  font-size: 13.5px;
+  color: var(--text-primary);
+  margin-top: 2px;
+}
+
+.checks p {
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.plainList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+}
+
+.plainList li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.calCell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 0;
+  border-radius: var(--radius-s);
+  background: color-mix(in srgb, var(--status-critical) 18%, transparent);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.calCell[data-complete] {
+  background: color-mix(in srgb, var(--status-good) 14%, transparent);
+}
+
+.calCell small {
+  font-size: 10.5px;
+  font-weight: 500;
+  color: var(--text-muted);
+}

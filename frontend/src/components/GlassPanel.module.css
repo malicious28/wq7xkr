@@ -1,0 +1,26 @@
+/* No z-index here: the panel must not create a stacking context (see GlassPanel.tsx). */
+.panel {
+  position: relative;
+  min-width: 0;
+}
+
+.lens {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  border-radius: var(--radius-l);
+}
+
+.lens:global(.glass-fallback) {
+  background: var(--surface-1-alpha);
+  border: 1px solid var(--border-strong);
+  backdrop-filter: blur(22px) saturate(160%);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  box-shadow: var(--shadow-1);
+}
+
+.content {
+  position: relative;
+  z-index: 11; /* one step above the lens canvas */
+  padding: 20px 22px;
+}

@@ -1,0 +1,2 @@
+# Generated from the backend OpenAPI spec (npm run gen:api); CI diffs it verbatim.
+src/api/schema.d.ts

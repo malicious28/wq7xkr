@@ -1,0 +1,506 @@
+{
+  "data": {
+    "delivery_date": "2026-01-15",
+    "auction": "n2ex_da",
+    "gate_local": "09:50",
+    "cutoff": "2026-01-14T09:50:00Z",
+    "margin_min": 0,
+    "run": {
+      "publish_time": "2026-01-14T09:30:00Z",
+      "points": 73,
+      "available": true,
+      "late": false,
+      "delay_min": 0.0
+    },
+    "run_age_min": 20.0,
+    "runs_in_window": [
+      {
+        "publish_time": "2026-01-13T11:30:00Z",
+        "points": 73,
+        "available": true,
+        "late": false,
+        "delay_min": 0.0
+      },
+      {
+        "publish_time": "2026-01-13T15:30:00Z",
+        "points": 73,
+        "available": true,
+        "late": false,
+        "delay_min": 0.0
+      },
+      {
+        "publish_time": "2026-01-13T18:30:00Z",
+        "points": 73,
+        "available": true,
+        "late": false,
+        "delay_min": 0.0
+      },
+      {
+        "publish_time": "2026-01-13T22:30:00Z",
+        "points": 73,
+        "available": true,
+        "late": false,
+        "delay_min": 0.0
+      },
+      {
+        "publish_time": "2026-01-14T02:30:00Z",
+        "points": 73,
+        "available": true,
+        "late": false,
+        "delay_min": 0.0
+      },
+      {
+        "publish_time": "2026-01-14T04:30:00Z",
+        "points": 73,
+        "available": true,
+        "late": false,
+        "delay_min": 0.0
+      },
+      {
+        "publish_time": "2026-01-14T07:30:00Z",
+        "points": 73,
+        "available": true,
+        "late": false,
+        "delay_min": 0.0
+      },
+      {
+        "publish_time": "2026-01-14T09:30:00Z",
+        "points": 73,
+        "available": true,
+        "late": false,
+        "delay_min": 0.0
+      },
+      {
+        "publish_time": "2026-01-14T11:30:00Z",
+        "points": 73,
+        "available": false,
+        "late": false,
+        "delay_min": 0.0
+      },
+      {
+        "publish_time": "2026-01-14T15:30:00Z",
+        "points": 73,
+        "available": false,
+        "late": false,
+        "delay_min": 0.0
+      },
+      {
+        "publish_time": "2026-01-14T18:30:00Z",
+        "points": 73,
+        "available": false,
+        "late": false,
+        "delay_min": 0.0
+      },
+      {
+        "publish_time": "2026-01-14T22:30:00Z",
+        "points": 73,
+        "available": false,
+        "late": false,
+        "delay_min": 0.0
+      },
+      {
+        "publish_time": "2026-01-15T02:30:00Z",
+        "points": 73,
+        "available": false,
+        "late": false,
+        "delay_min": 0.0
+      },
+      {
+        "publish_time": "2026-01-15T04:30:00Z",
+        "points": 73,
+        "available": false,
+        "late": false,
+        "delay_min": 0.0
+      },
+      {
+        "publish_time": "2026-01-15T07:30:00Z",
+        "points": 73,
+        "available": false,
+        "late": false,
+        "delay_min": 0.0
+      },
+      {
+        "publish_time": "2026-01-15T09:30:00Z",
+        "points": 73,
+        "available": false,
+        "late": false,
+        "delay_min": 0.0
+      },
+      {
+        "publish_time": "2026-01-15T12:25:00Z",
+        "points": 73,
+        "available": false,
+        "late": true,
+        "delay_min": 55.0
+      },
+      {
+        "publish_time": "2026-01-15T15:30:00Z",
+        "points": 73,
+        "available": false,
+        "late": false,
+        "delay_min": 0.0
+      },
+      {
+        "publish_time": "2026-01-15T18:30:00Z",
+        "points": 73,
+        "available": false,
+        "late": false,
+        "delay_min": 0.0
+      },
+      {
+        "publish_time": "2026-01-15T22:30:00Z",
+        "points": 73,
+        "available": false,
+        "late": false,
+        "delay_min": 0.0
+      }
+    ],
+    "newer_runs_after_cutoff": 12,
+    "warnings": [],
+    "history_days": 28,
+    "points": [
+      {
+        "start_time": "2026-01-15T00:00:00Z",
+        "lead_h": 14.5,
+        "forecast_mw": 15828.0,
+        "debiased_mw": 14595.75,
+        "ratio_mw": 14270.371440162897,
+        "band_low_mw": 10729.999999999998,
+        "band_high_mw": 16839.7,
+        "actual_mw": 14456.5,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-01-15T01:00:00Z",
+        "lead_h": 15.5,
+        "forecast_mw": 15454.0,
+        "debiased_mw": 14221.75,
+        "ratio_mw": 13933.176663904309,
+        "band_low_mw": 10355.999999999998,
+        "band_high_mw": 16465.7,
+        "actual_mw": 14358.0,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-01-15T02:00:00Z",
+        "lead_h": 16.5,
+        "forecast_mw": 15060.0,
+        "debiased_mw": 13827.75,
+        "ratio_mw": 13577.950081428684,
+        "band_low_mw": 9961.999999999998,
+        "band_high_mw": 16071.7,
+        "actual_mw": 14368.0,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-01-15T03:00:00Z",
+        "lead_h": 17.5,
+        "forecast_mw": 14665.0,
+        "debiased_mw": 13432.75,
+        "ratio_mw": 13221.821908642209,
+        "band_low_mw": 9566.999999999998,
+        "band_high_mw": 15676.7,
+        "actual_mw": 14139.0,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-01-15T04:00:00Z",
+        "lead_h": 18.5,
+        "forecast_mw": 14529.0,
+        "debiased_mw": 13296.75,
+        "ratio_mw": 13099.205626366358,
+        "band_low_mw": 9430.999999999998,
+        "band_high_mw": 15540.7,
+        "actual_mw": 13807.0,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-01-15T05:00:00Z",
+        "lead_h": 19.5,
+        "forecast_mw": 14477.0,
+        "debiased_mw": 13244.75,
+        "ratio_mw": 13052.322930202063,
+        "band_low_mw": 9378.999999999998,
+        "band_high_mw": 15488.7,
+        "actual_mw": 13546.5,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-01-15T06:00:00Z",
+        "lead_h": 20.5,
+        "forecast_mw": 14103.0,
+        "debiased_mw": 13265.5,
+        "ratio_mw": 12715.128153943475,
+        "band_low_mw": 9964.300000000001,
+        "band_high_mw": 14930.4,
+        "actual_mw": 13387.0,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-01-15T07:00:00Z",
+        "lead_h": 21.5,
+        "forecast_mw": 13514.0,
+        "debiased_mw": 12676.5,
+        "ratio_mw": 12184.091460851743,
+        "band_low_mw": 9375.300000000001,
+        "band_high_mw": 14341.4,
+        "actual_mw": 13169.0,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-01-15T08:00:00Z",
+        "lead_h": 22.5,
+        "forecast_mw": 13036.0,
+        "debiased_mw": 12198.5,
+        "ratio_mw": 11753.131292264563,
+        "band_low_mw": 8897.300000000001,
+        "band_high_mw": 13863.4,
+        "actual_mw": 12510.5,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-01-15T09:00:00Z",
+        "lead_h": 23.5,
+        "forecast_mw": 12678.0,
+        "debiased_mw": 11840.5,
+        "ratio_mw": 11430.361960979606,
+        "band_low_mw": 8539.300000000001,
+        "band_high_mw": 13505.4,
+        "actual_mw": 12193.0,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-01-15T10:00:00Z",
+        "lead_h": 24.5,
+        "forecast_mw": 12193.0,
+        "debiased_mw": 11355.5,
+        "ratio_mw": 10993.090660216463,
+        "band_low_mw": 8054.300000000001,
+        "band_high_mw": 13020.4,
+        "actual_mw": 10555.0,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-01-15T11:00:00Z",
+        "lead_h": 25.5,
+        "forecast_mw": 11707.0,
+        "debiased_mw": 10869.5,
+        "ratio_mw": 10554.91776914247,
+        "band_low_mw": 7568.300000000001,
+        "band_high_mw": 12534.4,
+        "actual_mw": 9765.5,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-01-15T12:00:00Z",
+        "lead_h": 26.5,
+        "forecast_mw": 11178.0,
+        "debiased_mw": 10949.25,
+        "ratio_mw": 10077.976494701848,
+        "band_low_mw": 7062.3,
+        "band_high_mw": 13198.85,
+        "actual_mw": 9790.5,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-01-15T13:00:00Z",
+        "lead_h": 27.5,
+        "forecast_mw": 10482.0,
+        "debiased_mw": 10253.25,
+        "ratio_mw": 9450.469638348968,
+        "band_low_mw": 6366.3,
+        "band_high_mw": 12502.85,
+        "actual_mw": 8807.0,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-01-15T14:00:00Z",
+        "lead_h": 28.5,
+        "forecast_mw": 9702.0,
+        "debiased_mw": 9473.25,
+        "ratio_mw": 8747.229195884534,
+        "band_low_mw": 5586.3,
+        "band_high_mw": 11722.85,
+        "actual_mw": 8324.0,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-01-15T15:00:00Z",
+        "lead_h": 29.5,
+        "forecast_mw": 9134.0,
+        "debiased_mw": 8905.25,
+        "ratio_mw": 8235.12589932069,
+        "band_low_mw": 5018.3,
+        "band_high_mw": 11154.85,
+        "actual_mw": 8545.0,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-01-15T16:00:00Z",
+        "lead_h": 30.5,
+        "forecast_mw": 8957.0,
+        "debiased_mw": 8728.25,
+        "ratio_mw": 8075.544414299916,
+        "band_low_mw": 4841.3,
+        "band_high_mw": 10977.85,
+        "actual_mw": 8460.5,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-01-15T17:00:00Z",
+        "lead_h": 31.5,
+        "forecast_mw": 8966.0,
+        "debiased_mw": 8737.25,
+        "ratio_mw": 8083.6587270975815,
+        "band_low_mw": 4850.3,
+        "band_high_mw": 10986.85,
+        "actual_mw": 8135.0,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-01-15T18:00:00Z",
+        "lead_h": 32.5,
+        "forecast_mw": 9053.0,
+        "debiased_mw": 8270.25,
+        "ratio_mw": 8162.097084141692,
+        "band_low_mw": 5128.0,
+        "band_high_mw": 10397.05,
+        "actual_mw": 7632.5,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-01-15T19:00:00Z",
+        "lead_h": 33.5,
+        "forecast_mw": 9210.0,
+        "debiased_mw": 8427.25,
+        "ratio_mw": 8303.646762945431,
+        "band_low_mw": 5285.0,
+        "band_high_mw": 10554.05,
+        "actual_mw": 7615.0,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-01-15T20:00:00Z",
+        "lead_h": 34.5,
+        "forecast_mw": 9126.0,
+        "debiased_mw": 8343.25,
+        "ratio_mw": 8227.913176833876,
+        "band_low_mw": 5201.0,
+        "band_high_mw": 10470.05,
+        "actual_mw": 7387.5,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-01-15T21:00:00Z",
+        "lead_h": 35.5,
+        "forecast_mw": 9104.0,
+        "debiased_mw": 8321.25,
+        "ratio_mw": 8208.078189995136,
+        "band_low_mw": 5179.0,
+        "band_high_mw": 10448.05,
+        "actual_mw": 7783.5,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-01-15T22:00:00Z",
+        "lead_h": 36.5,
+        "forecast_mw": 9130.0,
+        "debiased_mw": 8347.25,
+        "ratio_mw": 8231.519538077284,
+        "band_low_mw": 5205.0,
+        "band_high_mw": 10474.05,
+        "actual_mw": 7558.0,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-01-15T23:00:00Z",
+        "lead_h": 37.5,
+        "forecast_mw": 8986.0,
+        "debiased_mw": 8203.25,
+        "ratio_mw": 8101.690533314619,
+        "band_low_mw": 5061.0,
+        "band_high_mw": 10330.05,
+        "actual_mw": 7332.5,
+        "actual_known_at_cutoff": false
+      }
+    ],
+    "actuals_half_hourly": [
+      { "start_time": "2026-01-15T00:00:00Z", "settlement_period": 1, "actual_mw": 14602.0 },
+      { "start_time": "2026-01-15T00:30:00Z", "settlement_period": 2, "actual_mw": 14311.0 },
+      { "start_time": "2026-01-15T01:00:00Z", "settlement_period": 3, "actual_mw": 14200.0 },
+      { "start_time": "2026-01-15T01:30:00Z", "settlement_period": 4, "actual_mw": 14516.0 },
+      { "start_time": "2026-01-15T02:00:00Z", "settlement_period": 5, "actual_mw": 14534.0 },
+      { "start_time": "2026-01-15T02:30:00Z", "settlement_period": 6, "actual_mw": 14202.0 },
+      { "start_time": "2026-01-15T03:00:00Z", "settlement_period": 7, "actual_mw": 14028.0 },
+      { "start_time": "2026-01-15T03:30:00Z", "settlement_period": 8, "actual_mw": 14250.0 },
+      { "start_time": "2026-01-15T04:00:00Z", "settlement_period": 9, "actual_mw": 13901.0 },
+      { "start_time": "2026-01-15T04:30:00Z", "settlement_period": 10, "actual_mw": 13713.0 },
+      { "start_time": "2026-01-15T05:00:00Z", "settlement_period": 11, "actual_mw": 13704.0 },
+      { "start_time": "2026-01-15T05:30:00Z", "settlement_period": 12, "actual_mw": 13389.0 },
+      { "start_time": "2026-01-15T06:00:00Z", "settlement_period": 13, "actual_mw": 13256.0 },
+      { "start_time": "2026-01-15T06:30:00Z", "settlement_period": 14, "actual_mw": 13518.0 },
+      { "start_time": "2026-01-15T07:00:00Z", "settlement_period": 15, "actual_mw": 13401.0 },
+      { "start_time": "2026-01-15T07:30:00Z", "settlement_period": 16, "actual_mw": 12937.0 },
+      { "start_time": "2026-01-15T08:00:00Z", "settlement_period": 17, "actual_mw": 12719.0 },
+      { "start_time": "2026-01-15T08:30:00Z", "settlement_period": 18, "actual_mw": 12302.0 },
+      { "start_time": "2026-01-15T09:00:00Z", "settlement_period": 19, "actual_mw": 12242.0 },
+      { "start_time": "2026-01-15T09:30:00Z", "settlement_period": 20, "actual_mw": 12144.0 },
+      { "start_time": "2026-01-15T10:00:00Z", "settlement_period": 21, "actual_mw": 9807.0 },
+      { "start_time": "2026-01-15T10:30:00Z", "settlement_period": 22, "actual_mw": 11303.0 },
+      { "start_time": "2026-01-15T11:00:00Z", "settlement_period": 23, "actual_mw": 9930.0 },
+      { "start_time": "2026-01-15T11:30:00Z", "settlement_period": 24, "actual_mw": 9601.0 },
+      { "start_time": "2026-01-15T12:00:00Z", "settlement_period": 25, "actual_mw": 9742.0 },
+      { "start_time": "2026-01-15T12:30:00Z", "settlement_period": 26, "actual_mw": 9839.0 },
+      { "start_time": "2026-01-15T13:00:00Z", "settlement_period": 27, "actual_mw": 8843.0 },
+      { "start_time": "2026-01-15T13:30:00Z", "settlement_period": 28, "actual_mw": 8771.0 },
+      { "start_time": "2026-01-15T14:00:00Z", "settlement_period": 29, "actual_mw": 8384.0 },
+      { "start_time": "2026-01-15T14:30:00Z", "settlement_period": 30, "actual_mw": 8264.0 },
+      { "start_time": "2026-01-15T15:00:00Z", "settlement_period": 31, "actual_mw": 8482.0 },
+      { "start_time": "2026-01-15T15:30:00Z", "settlement_period": 32, "actual_mw": 8608.0 },
+      { "start_time": "2026-01-15T16:00:00Z", "settlement_period": 33, "actual_mw": 8543.0 },
+      { "start_time": "2026-01-15T16:30:00Z", "settlement_period": 34, "actual_mw": 8378.0 },
+      { "start_time": "2026-01-15T17:00:00Z", "settlement_period": 35, "actual_mw": 8266.0 },
+      { "start_time": "2026-01-15T17:30:00Z", "settlement_period": 36, "actual_mw": 8004.0 },
+      { "start_time": "2026-01-15T18:00:00Z", "settlement_period": 37, "actual_mw": 7672.0 },
+      { "start_time": "2026-01-15T18:30:00Z", "settlement_period": 38, "actual_mw": 7593.0 },
+      { "start_time": "2026-01-15T19:00:00Z", "settlement_period": 39, "actual_mw": 7631.0 },
+      { "start_time": "2026-01-15T19:30:00Z", "settlement_period": 40, "actual_mw": 7599.0 },
+      { "start_time": "2026-01-15T20:00:00Z", "settlement_period": 41, "actual_mw": 7592.0 },
+      { "start_time": "2026-01-15T20:30:00Z", "settlement_period": 42, "actual_mw": 7183.0 },
+      { "start_time": "2026-01-15T21:00:00Z", "settlement_period": 43, "actual_mw": 7603.0 },
+      { "start_time": "2026-01-15T21:30:00Z", "settlement_period": 44, "actual_mw": 7964.0 },
+      { "start_time": "2026-01-15T22:00:00Z", "settlement_period": 45, "actual_mw": 7685.0 },
+      { "start_time": "2026-01-15T22:30:00Z", "settlement_period": 46, "actual_mw": 7431.0 },
+      { "start_time": "2026-01-15T23:00:00Z", "settlement_period": 47, "actual_mw": 7258.0 },
+      { "start_time": "2026-01-15T23:30:00Z", "settlement_period": 48, "actual_mw": 7407.0 }
+    ],
+    "energy_forecast_mwh": 280272.0,
+    "energy_conservative_mwh": 176607.59999999998,
+    "energy_actual_mwh": 253626.0,
+    "day_summary": {
+      "n": 24,
+      "bias_mw": 1110.25,
+      "mae_mw": 1110.25,
+      "rmse_mw": 1212.2166077754696,
+      "wape": 0.10506020676113648,
+      "nmae": 0.0603987596561854,
+      "err_p10_mw": 505.2,
+      "err_p50_mw": 1208.25,
+      "err_p90_mw": 1668.55,
+      "abs_err_p90_mw": 1668.55,
+      "mean_actual_mw": 10567.75,
+      "mean_forecast_mw": 11678.0
+    }
+  },
+  "meta": {
+    "data_version": "c589a65ee65e",
+    "generated_at": "2026-10-25T00:23:32.264554Z",
+    "params": {
+      "delivery_date": "2026-01-15",
+      "auction": "n2ex_da",
+      "gate_local": "09:50",
+      "margin_min": 0,
+      "matching": "hour_mean"
+    }
+  }
+}

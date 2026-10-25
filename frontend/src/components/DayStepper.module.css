@@ -1,0 +1,66 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.control {
+  display: flex;
+  align-items: center;
+  height: 36px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-strong);
+  background: var(--surface-2);
+}
+
+.step {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  background: transparent;
+  border-radius: 50%;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.step:hover:not(:disabled) {
+  color: var(--text-primary);
+  background: color-mix(in srgb, var(--text-primary) 8%, transparent);
+}
+
+.step:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.display {
+  position: relative;
+  min-width: 112px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* The native input sits invisibly over the label so clicking opens the picker. */
+.input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.input:focus-visible + .day,
+.display:focus-within {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+  border-radius: 6px;
+}

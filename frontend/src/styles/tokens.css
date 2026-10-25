@@ -1,0 +1,128 @@
+/*
+ * Design tokens. Every colour in the app is referenced by role, never by hex.
+ *
+ * Data colours are reserved for data: controls and chrome use neutral ink,
+ * so a coloured thing on screen always means a series. Series roles are fixed
+ * (forecast = slot 1 blue, actual = slot 2 orange, adjusted = slot 3 aqua,
+ * persistence = slot 7 violet) and were validated for CVD separation and
+ * contrast against each theme's chart surface (see docs/adr/0006-ui-design-system.md).
+ */
+
+:root {
+  color-scheme: dark;
+
+  --font-sans: 'Inter Tight Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, 'Cascadia Code', monospace;
+
+  /* surfaces */
+  --page: #060a13;
+  --surface-1: #101827;
+  --surface-1-alpha: rgba(16, 24, 39, 0.72);
+  --surface-2: #162133;
+  --surface-3: #1d2a3f;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
+
+  /* ink */
+  --text-primary: #eef2f7;
+  --text-secondary: #b4bfcc;
+  --text-muted: #7d8899;
+  --text-on-fill: #ffffff;
+
+  /* chart chrome */
+  --grid: #1c2638;
+  --axis: #2c3a50;
+
+  /* series (validated set, dark steps) */
+  --series-forecast: #3987e5;
+  --series-actual: #d95926;
+  --series-adjusted: #199e70;
+  --series-persistence: #9085e9;
+  --series-debiased: #c98500;
+  --band-fill: rgba(57, 135, 229, 0.2);
+
+  /* diverging error: forecast too low (cool) <-> too high (warm), neutral midpoint */
+  --div-neg: #3987e5;
+  --div-mid: #2a3446;
+  --div-pos: #e66767;
+
+  /* sequential (magnitude) ramp, dark anchor: low recedes toward the surface */
+  --seq-0: #13233d;
+  --seq-1: #184f95;
+  --seq-2: #2a78d6;
+  --seq-3: #6da7ec;
+  --seq-4: #cde2fb;
+
+  /* status: reserved, always paired with icon + label */
+  --status-good: #0ca30c;
+  --status-warning: #fab219;
+  --status-serious: #ec835a;
+  --status-critical: #d03b3b;
+
+  /* atmosphere behind the glass */
+  --aurora-1: rgba(25, 158, 112, 0.22);
+  --aurora-2: rgba(57, 135, 229, 0.26);
+  --aurora-3: rgba(144, 133, 233, 0.18);
+
+  --radius-s: 8px;
+  --radius-m: 14px;
+  --radius-l: 22px;
+  --radius-pill: 999px;
+  --shadow-1: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 12px 32px rgba(0, 0, 0, 0.35);
+
+  --gutter: 24px;
+  --content-max: 1240px;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 160ms;
+  --dur-med: 320ms;
+  --dur-slow: 700ms;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+
+  --page: #eef2f7;
+  --surface-1: #fcfcfb;
+  --surface-1-alpha: rgba(252, 252, 251, 0.78);
+  --surface-2: #f3f5f8;
+  --surface-3: #e8ecf2;
+  --border: rgba(11, 11, 11, 0.1);
+  --border-strong: rgba(11, 11, 11, 0.18);
+
+  --text-primary: #0b0b0b;
+  --text-secondary: #52514e;
+  --text-muted: #6f6e69;
+
+  --grid: #e1e0d9;
+  --axis: #c3c2b7;
+
+  --series-forecast: #2a78d6;
+  --series-actual: #eb6834;
+  --series-adjusted: #1baf7a;
+  --series-persistence: #6250d6;
+  --series-debiased: #eda100;
+  --band-fill: rgba(42, 120, 214, 0.16);
+
+  --div-neg: #2a78d6;
+  --div-mid: #f0efec;
+  --div-pos: #e34948;
+
+  --seq-0: #e8f1fd;
+  --seq-1: #b7d3f6;
+  --seq-2: #6da7ec;
+  --seq-3: #2a78d6;
+  --seq-4: #104281;
+
+  --aurora-1: rgba(27, 175, 122, 0.16);
+  --aurora-2: rgba(42, 120, 214, 0.18);
+  --aurora-3: rgba(98, 80, 214, 0.12);
+
+  --shadow-1: 0 1px 0 rgba(255, 255, 255, 0.6) inset, 0 10px 30px rgba(15, 30, 60, 0.1);
+}
+
+@media (max-width: 720px) {
+  :root {
+    --gutter: 16px;
+  }
+}

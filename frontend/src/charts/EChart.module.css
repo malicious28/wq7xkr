@@ -1,0 +1,8 @@
+.chart {
+  width: 100%;
+  transition: opacity var(--dur-med) var(--ease-out);
+}
+
+.chart[data-stale] {
+  opacity: 0.45;
+}

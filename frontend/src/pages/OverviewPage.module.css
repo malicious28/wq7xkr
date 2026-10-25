@@ -1,0 +1,220 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ------------------------------------------------------------ hero */
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: 48px;
+  align-items: center;
+  min-height: min(78vh, 760px);
+  padding: 48px 0 32px;
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 14px 6px 10px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-strong);
+  background: color-mix(in srgb, var(--surface-1) 50%, transparent);
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--series-adjusted);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--series-adjusted) 25%, transparent);
+  animation: pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  50% {
+    box-shadow: 0 0 0 7px color-mix(in srgb, var(--series-adjusted) 0%, transparent);
+  }
+}
+
+.title {
+  margin-top: 22px;
+  font-size: clamp(38px, 5.6vw, 72px);
+  font-weight: 650;
+  letter-spacing: -0.045em;
+  line-height: 1.02;
+}
+
+.titleSoft {
+  background: linear-gradient(100deg, var(--text-primary) 10%, var(--text-muted) 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.lede {
+  margin-top: 22px;
+  max-width: 58ch;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.ctaPrimary,
+.ctaGhost {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 46px;
+  padding: 0 22px;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+  transition:
+    transform var(--dur-fast) var(--ease-out),
+    background var(--dur-fast);
+}
+
+.ctaPrimary {
+  background: var(--text-primary);
+  color: var(--page);
+}
+
+.ctaPrimary:hover {
+  transform: translateY(-1px);
+}
+
+.ctaGhost {
+  border: 1px solid var(--border-strong);
+  color: var(--text-primary);
+}
+
+.ctaGhost:hover {
+  background: color-mix(in srgb, var(--text-primary) 7%, transparent);
+}
+
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+/* ------------------------------------------------------------ chapters */
+
+.chapter {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.3fr);
+  gap: 40px;
+  align-items: center;
+  padding: 48px 0;
+  border-top: 1px solid var(--border);
+}
+
+.chapterText h2 {
+  margin-top: 10px;
+  font-size: clamp(24px, 2.8vw, 34px);
+  letter-spacing: -0.03em;
+}
+
+.chapterText p {
+  margin-top: 14px;
+  color: var(--text-secondary);
+  font-size: 16px;
+  max-width: 52ch;
+}
+
+.num {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.chapterViz {
+  padding: 18px 18px 10px;
+  border-radius: var(--radius-l);
+  border: 1px solid var(--border);
+  background: var(--surface-1-alpha);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  min-width: 0;
+}
+
+.inlineLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 18px;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  border-bottom: 1px solid var(--border-strong);
+  padding-bottom: 2px;
+}
+
+.inlineLink:hover {
+  border-color: var(--text-primary);
+}
+
+/* ------------------------------------------------------------ trust */
+
+.trust {
+  padding: 56px 0 24px;
+  border-top: 1px solid var(--border);
+}
+
+.trust h2 {
+  font-size: clamp(24px, 2.8vw, 34px);
+  letter-spacing: -0.03em;
+}
+
+.principles {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 28px;
+  margin-top: 28px;
+}
+
+.principles h3 {
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+
+.principles p {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+@media (max-width: 960px) {
+  .hero,
+  .chapter {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+  .hero {
+    min-height: 0;
+  }
+  .principles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .kpis,
+  .principles {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
