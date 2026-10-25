@@ -164,7 +164,11 @@ Interactive docs at `/docs`. Every JSON response is `{ data, meta: { data_versio
 
 ## Deploy
 
-The app ships as a single container on Heroku's container stack ([ADR 0005](docs/adr/0005-deployment-single-container.md)):
+The app ships as one Docker image ([ADR 0005](docs/adr/0005-deployment-single-container.md)), and the same image runs on either platform.
+
+**Vercel** (the live deployment) runs it with the Container runtime. `vercel.json` declares the root `Dockerfile` as the only service and routes all traffic to it. Import the repository, then set one environment variable: `PORT=8000`. The image listens on 8000 because it runs as a non-root user, while Vercel's default port is 80. Idle instances scale to zero after 5 minutes, so the first request after a quiet period starts a container, which takes a few seconds.
+
+**Heroku** uses the container stack through `heroku.yml`:
 
 ```bash
 heroku create <app-name>
@@ -172,7 +176,7 @@ heroku stack:set container -a <app-name>
 git push heroku main          # builds the Dockerfile via heroku.yml
 ```
 
-No add-ons or config vars are required. Use a Basic dyno for reviews, because Eco dynos sleep after 30 minutes idle.
+No add-ons or other config vars are needed. Use a Basic dyno for reviews, because Eco dynos sleep after 30 minutes idle.
 
 ## Design decisions
 
