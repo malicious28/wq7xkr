@@ -1,0 +1,15 @@
+**/node_modules
+**/.venv
+**/__pycache__
+**/.pytest_cache
+**/.mypy_cache
+**/.ruff_cache
+**/.coverage
+**/coverage
+**/dist
+**/*.duckdb
+**/*.building
+.git
+.github
+docs
+**/.env

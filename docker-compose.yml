@@ -1,0 +1,11 @@
+# Run the production image locally: `docker compose up --build`, then http://localhost:8000
+services:
+  web:
+    build: .
+    image: windesk:local
+    ports:
+      - "8000:8000"
+    environment:
+      PORT: "8000"
+      WINDESK_LOG_LEVEL: INFO
+    restart: unless-stopped
