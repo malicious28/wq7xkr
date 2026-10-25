@@ -1,0 +1,2984 @@
+{
+  "components": {
+    "schemas": {
+      "AccuracyOut": {
+        "additionalProperties": false,
+        "properties": {
+          "by_actual_level": {
+            "items": {
+              "$ref": "#/components/schemas/GroupStat"
+            },
+            "title": "By Actual Level",
+            "type": "array"
+          },
+          "by_forecast_level": {
+            "items": {
+              "$ref": "#/components/schemas/GroupStat"
+            },
+            "title": "By Forecast Level",
+            "type": "array"
+          },
+          "by_hour": {
+            "items": {
+              "$ref": "#/components/schemas/GroupStat"
+            },
+            "title": "By Hour",
+            "type": "array"
+          },
+          "capacity_proxy_mw": {
+            "title": "Capacity Proxy Mw",
+            "type": "number"
+          },
+          "curve": {
+            "items": {
+              "$ref": "#/components/schemas/CurvePoint"
+            },
+            "title": "Curve",
+            "type": "array"
+          },
+          "daily": {
+            "items": {
+              "$ref": "#/components/schemas/DailyStat"
+            },
+            "title": "Daily",
+            "type": "array"
+          },
+          "error_histogram": {
+            "items": {
+              "$ref": "#/components/schemas/HistBin"
+            },
+            "title": "Error Histogram",
+            "type": "array"
+          },
+          "heatmap": {
+            "items": {
+              "$ref": "#/components/schemas/HeatCell"
+            },
+            "title": "Heatmap",
+            "type": "array"
+          },
+          "heatmap_horizons": {
+            "items": {
+              "type": "integer"
+            },
+            "title": "Heatmap Horizons",
+            "type": "array"
+          },
+          "hindsight": {
+            "$ref": "#/components/schemas/Summary",
+            "description": "The latest-ever run per hour (Elexon's 'latest'), published after the hour: what accuracy looks like with hindsight, never usable for a decision"
+          },
+          "horizon_h": {
+            "title": "Horizon H",
+            "type": "integer"
+          },
+          "summary": {
+            "$ref": "#/components/schemas/Summary"
+          }
+        },
+        "required": [
+          "horizon_h",
+          "summary",
+          "hindsight",
+          "curve",
+          "heatmap",
+          "heatmap_horizons",
+          "by_actual_level",
+          "by_forecast_level",
+          "by_hour",
+          "error_histogram",
+          "daily",
+          "capacity_proxy_mw"
+        ],
+        "title": "AccuracyOut",
+        "type": "object"
+      },
+      "ActualPoint": {
+        "additionalProperties": false,
+        "properties": {
+          "actual_mw": {
+            "title": "Actual Mw",
+            "type": "number"
+          },
+          "start_time": {
+            "format": "date-time",
+            "title": "Start Time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "start_time",
+          "actual_mw"
+        ],
+        "title": "ActualPoint",
+        "type": "object"
+      },
+      "AuctionId": {
+        "enum": [
+          "n2ex_da",
+          "epex_da_60",
+          "epex_da_30"
+        ],
+        "title": "AuctionId",
+        "type": "string"
+      },
+      "AuctionOut": {
+        "additionalProperties": false,
+        "properties": {
+          "gate_local": {
+            "description": "HH:MM, UK local time, on D-1",
+            "title": "Gate Local",
+            "type": "string"
+          },
+          "id": {
+            "$ref": "#/components/schemas/AuctionId"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "product": {
+            "title": "Product",
+            "type": "string"
+          },
+          "source": {
+            "title": "Source",
+            "type": "string"
+          },
+          "source_quality": {
+            "enum": [
+              "primary",
+              "secondary"
+            ],
+            "title": "Source Quality",
+            "type": "string"
+          },
+          "venue": {
+            "title": "Venue",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "venue",
+          "product",
+          "gate_local",
+          "source",
+          "source_quality"
+        ],
+        "title": "AuctionOut",
+        "type": "object"
+      },
+      "BandCoverage": {
+        "additionalProperties": false,
+        "properties": {
+          "above": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Above"
+          },
+          "below": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Below"
+          },
+          "coverage": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Coverage"
+          },
+          "mean_width_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mean Width Mw"
+          },
+          "n": {
+            "title": "N",
+            "type": "integer"
+          },
+          "nominal": {
+            "title": "Nominal",
+            "type": "number"
+          }
+        },
+        "required": [
+          "n",
+          "nominal",
+          "coverage",
+          "mean_width_mw",
+          "below",
+          "above"
+        ],
+        "title": "BandCoverage",
+        "type": "object"
+      },
+      "CurvePoint": {
+        "additionalProperties": false,
+        "properties": {
+          "bias_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bias Mw"
+          },
+          "coverage": {
+            "title": "Coverage",
+            "type": "number"
+          },
+          "err_p10_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Err P10 Mw"
+          },
+          "err_p90_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Err P90 Mw"
+          },
+          "horizon_h": {
+            "title": "Horizon H",
+            "type": "integer"
+          },
+          "mae_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mae Mw"
+          },
+          "n": {
+            "title": "N",
+            "type": "integer"
+          },
+          "rmse_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rmse Mw"
+          }
+        },
+        "required": [
+          "horizon_h",
+          "n",
+          "bias_mw",
+          "mae_mw",
+          "rmse_mw",
+          "err_p10_mw",
+          "err_p90_mw",
+          "coverage"
+        ],
+        "title": "CurvePoint",
+        "type": "object"
+      },
+      "DailyModelError": {
+        "additionalProperties": false,
+        "properties": {
+          "debiased_mae_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Debiased Mae Mw"
+          },
+          "delivery_date": {
+            "format": "date",
+            "title": "Delivery Date",
+            "type": "string"
+          },
+          "ratio_mae_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ratio Mae Mw"
+          },
+          "raw_bias_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Raw Bias Mw"
+          },
+          "raw_mae_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Raw Mae Mw"
+          }
+        },
+        "required": [
+          "delivery_date",
+          "raw_mae_mw",
+          "debiased_mae_mw",
+          "ratio_mae_mw",
+          "raw_bias_mw"
+        ],
+        "title": "DailyModelError",
+        "type": "object"
+      },
+      "DailyStat": {
+        "additionalProperties": false,
+        "properties": {
+          "bias_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bias Mw"
+          },
+          "delivery_date": {
+            "format": "date",
+            "title": "Delivery Date",
+            "type": "string"
+          },
+          "mae_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mae Mw"
+          },
+          "mean_actual_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mean Actual Mw"
+          },
+          "n": {
+            "title": "N",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "delivery_date",
+          "n",
+          "bias_mw",
+          "mae_mw",
+          "mean_actual_mw"
+        ],
+        "title": "DailyStat",
+        "type": "object"
+      },
+      "DayCompleteness": {
+        "additionalProperties": false,
+        "properties": {
+          "complete": {
+            "title": "Complete",
+            "type": "boolean"
+          },
+          "expected": {
+            "title": "Expected",
+            "type": "integer"
+          },
+          "observed": {
+            "title": "Observed",
+            "type": "integer"
+          },
+          "settlement_date": {
+            "format": "date",
+            "title": "Settlement Date",
+            "type": "string"
+          }
+        },
+        "required": [
+          "settlement_date",
+          "expected",
+          "observed",
+          "complete"
+        ],
+        "title": "DayCompleteness",
+        "type": "object"
+      },
+      "DecisionOut": {
+        "additionalProperties": false,
+        "properties": {
+          "actuals_half_hourly": {
+            "items": {
+              "$ref": "#/components/schemas/HalfHourActual"
+            },
+            "title": "Actuals Half Hourly",
+            "type": "array"
+          },
+          "auction": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AuctionId"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "cutoff": {
+            "format": "date-time",
+            "title": "Cutoff",
+            "type": "string"
+          },
+          "day_summary": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Summary"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Raw forecast vs actual, once outturn is known"
+          },
+          "delivery_date": {
+            "format": "date",
+            "title": "Delivery Date",
+            "type": "string"
+          },
+          "energy_actual_mwh": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Energy Actual Mwh"
+          },
+          "energy_conservative_mwh": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Sum of hourly P10 (MWh)",
+            "title": "Energy Conservative Mwh"
+          },
+          "energy_forecast_mwh": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Energy Forecast Mwh"
+          },
+          "gate_local": {
+            "title": "Gate Local",
+            "type": "string"
+          },
+          "history_days": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "History Days"
+          },
+          "margin_min": {
+            "title": "Margin Min",
+            "type": "integer"
+          },
+          "newer_runs_after_cutoff": {
+            "title": "Newer Runs After Cutoff",
+            "type": "integer"
+          },
+          "points": {
+            "items": {
+              "$ref": "#/components/schemas/DecisionPoint"
+            },
+            "title": "Points",
+            "type": "array"
+          },
+          "run": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RunInfo"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "run_age_min": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Run Age Min"
+          },
+          "runs_in_window": {
+            "items": {
+              "$ref": "#/components/schemas/RunInfo"
+            },
+            "title": "Runs In Window",
+            "type": "array"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Warnings",
+            "type": "array"
+          }
+        },
+        "required": [
+          "delivery_date",
+          "auction",
+          "gate_local",
+          "cutoff",
+          "margin_min",
+          "run",
+          "run_age_min",
+          "runs_in_window",
+          "newer_runs_after_cutoff",
+          "warnings",
+          "history_days",
+          "points",
+          "actuals_half_hourly",
+          "energy_forecast_mwh",
+          "energy_conservative_mwh",
+          "energy_actual_mwh",
+          "day_summary"
+        ],
+        "title": "DecisionOut",
+        "type": "object"
+      },
+      "DecisionPoint": {
+        "additionalProperties": false,
+        "properties": {
+          "actual_known_at_cutoff": {
+            "title": "Actual Known At Cutoff",
+            "type": "boolean"
+          },
+          "actual_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Actual Mw"
+          },
+          "band_high_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "P90 of actual (optimistic wind)",
+            "title": "Band High Mw"
+          },
+          "band_low_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "P10 of actual (conservative wind)",
+            "title": "Band Low Mw"
+          },
+          "debiased_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Raw minus trailing median error (additive)",
+            "title": "Debiased Mw"
+          },
+          "forecast_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Forecast Mw"
+          },
+          "lead_h": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lead H"
+          },
+          "ratio_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Raw divided by trailing energy ratio",
+            "title": "Ratio Mw"
+          },
+          "start_time": {
+            "format": "date-time",
+            "title": "Start Time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "start_time",
+          "lead_h",
+          "forecast_mw",
+          "debiased_mw",
+          "ratio_mw",
+          "band_low_mw",
+          "band_high_mw",
+          "actual_mw",
+          "actual_known_at_cutoff"
+        ],
+        "title": "DecisionPoint",
+        "type": "object"
+      },
+      "Envelope_AccuracyOut_": {
+        "additionalProperties": false,
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/AccuracyOut"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ResponseMeta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Envelope[AccuracyOut]",
+        "type": "object"
+      },
+      "Envelope_DecisionOut_": {
+        "additionalProperties": false,
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/DecisionOut"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ResponseMeta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Envelope[DecisionOut]",
+        "type": "object"
+      },
+      "Envelope_HorizonOut_": {
+        "additionalProperties": false,
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/HorizonOut"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ResponseMeta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Envelope[HorizonOut]",
+        "type": "object"
+      },
+      "Envelope_MetaOut_": {
+        "additionalProperties": false,
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/MetaOut"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ResponseMeta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Envelope[MetaOut]",
+        "type": "object"
+      },
+      "Envelope_ModelsOut_": {
+        "additionalProperties": false,
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/ModelsOut"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ResponseMeta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Envelope[ModelsOut]",
+        "type": "object"
+      },
+      "Envelope_QualityOut_": {
+        "additionalProperties": false,
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/QualityOut"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ResponseMeta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Envelope[QualityOut]",
+        "type": "object"
+      },
+      "Envelope_RampsOut_": {
+        "additionalProperties": false,
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/RampsOut"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ResponseMeta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Envelope[RampsOut]",
+        "type": "object"
+      },
+      "Envelope_RevisionsOut_": {
+        "additionalProperties": false,
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/RevisionsOut"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ResponseMeta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Envelope[RevisionsOut]",
+        "type": "object"
+      },
+      "GroupStat": {
+        "additionalProperties": false,
+        "properties": {
+          "abs_err_p90_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Abs Err P90 Mw"
+          },
+          "bias_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bias Mw"
+          },
+          "err_p10_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Err P10 Mw"
+          },
+          "err_p50_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Err P50 Mw"
+          },
+          "err_p90_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Err P90 Mw"
+          },
+          "key": {
+            "title": "Key",
+            "type": "string"
+          },
+          "mae_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mae Mw"
+          },
+          "mean_actual_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mean Actual Mw"
+          },
+          "mean_forecast_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mean Forecast Mw"
+          },
+          "n": {
+            "title": "N",
+            "type": "integer"
+          },
+          "nmae": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "MAE / capacity proxy (max observed outturn)",
+            "title": "Nmae"
+          },
+          "rmse_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rmse Mw"
+          },
+          "wape": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Sum |error| / sum actual",
+            "title": "Wape"
+          }
+        },
+        "required": [
+          "n",
+          "bias_mw",
+          "mae_mw",
+          "rmse_mw",
+          "wape",
+          "nmae",
+          "err_p10_mw",
+          "err_p50_mw",
+          "err_p90_mw",
+          "abs_err_p90_mw",
+          "mean_actual_mw",
+          "mean_forecast_mw",
+          "key"
+        ],
+        "title": "GroupStat",
+        "type": "object"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "title": "Detail",
+            "type": "array"
+          }
+        },
+        "title": "HTTPValidationError",
+        "type": "object"
+      },
+      "HalfHourActual": {
+        "additionalProperties": false,
+        "properties": {
+          "actual_mw": {
+            "title": "Actual Mw",
+            "type": "number"
+          },
+          "settlement_period": {
+            "title": "Settlement Period",
+            "type": "integer"
+          },
+          "start_time": {
+            "format": "date-time",
+            "title": "Start Time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "start_time",
+          "settlement_period",
+          "actual_mw"
+        ],
+        "title": "HalfHourActual",
+        "type": "object"
+      },
+      "HeatCell": {
+        "additionalProperties": false,
+        "properties": {
+          "bias_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bias Mw"
+          },
+          "horizon_h": {
+            "title": "Horizon H",
+            "type": "integer"
+          },
+          "hour_local": {
+            "title": "Hour Local",
+            "type": "integer"
+          },
+          "mae_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mae Mw"
+          },
+          "n": {
+            "title": "N",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "hour_local",
+          "horizon_h",
+          "n",
+          "mae_mw",
+          "bias_mw"
+        ],
+        "title": "HeatCell",
+        "type": "object"
+      },
+      "HistBin": {
+        "additionalProperties": false,
+        "properties": {
+          "bin_start_mw": {
+            "title": "Bin Start Mw",
+            "type": "number"
+          },
+          "count": {
+            "title": "Count",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "bin_start_mw",
+          "count"
+        ],
+        "title": "HistBin",
+        "type": "object"
+      },
+      "HorizonOut": {
+        "additionalProperties": false,
+        "properties": {
+          "coverage": {
+            "description": "Share of target hours with a forecast at this horizon",
+            "title": "Coverage",
+            "type": "number"
+          },
+          "horizon_h": {
+            "title": "Horizon H",
+            "type": "integer"
+          },
+          "points": {
+            "items": {
+              "$ref": "#/components/schemas/HorizonPoint"
+            },
+            "title": "Points",
+            "type": "array"
+          },
+          "summary": {
+            "$ref": "#/components/schemas/Summary"
+          }
+        },
+        "required": [
+          "horizon_h",
+          "points",
+          "summary",
+          "coverage"
+        ],
+        "title": "HorizonOut",
+        "type": "object"
+      },
+      "HorizonPoint": {
+        "additionalProperties": false,
+        "properties": {
+          "actual_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Actual Mw"
+          },
+          "forecast_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Forecast Mw"
+          },
+          "lead_h": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lead H"
+          },
+          "publish_time": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Publish Time"
+          },
+          "start_time": {
+            "format": "date-time",
+            "title": "Start Time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "start_time",
+          "publish_time",
+          "lead_h",
+          "forecast_mw",
+          "actual_mw"
+        ],
+        "title": "HorizonPoint",
+        "type": "object"
+      },
+      "IssueOut": {
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "count": {
+            "title": "Count",
+            "type": "integer"
+          },
+          "dataset": {
+            "title": "Dataset",
+            "type": "string"
+          },
+          "detail": {
+            "title": "Detail",
+            "type": "string"
+          },
+          "severity": {
+            "title": "Severity",
+            "type": "string"
+          }
+        },
+        "required": [
+          "dataset",
+          "code",
+          "severity",
+          "count",
+          "detail"
+        ],
+        "title": "IssueOut",
+        "type": "object"
+      },
+      "LateRun": {
+        "additionalProperties": false,
+        "properties": {
+          "delay_min": {
+            "title": "Delay Min",
+            "type": "number"
+          },
+          "publish_time": {
+            "format": "date-time",
+            "title": "Publish Time",
+            "type": "string"
+          },
+          "slot_utc": {
+            "title": "Slot Utc",
+            "type": "string"
+          }
+        },
+        "required": [
+          "publish_time",
+          "slot_utc",
+          "delay_min"
+        ],
+        "title": "LateRun",
+        "type": "object"
+      },
+      "MatchingRule": {
+        "enum": [
+          "hour_mean",
+          "on_the_hour"
+        ],
+        "title": "MatchingRule",
+        "type": "string"
+      },
+      "MetaOut": {
+        "additionalProperties": false,
+        "properties": {
+          "actual_first": {
+            "format": "date-time",
+            "title": "Actual First",
+            "type": "string"
+          },
+          "actual_last": {
+            "format": "date-time",
+            "title": "Actual Last",
+            "type": "string"
+          },
+          "actual_rows": {
+            "title": "Actual Rows",
+            "type": "integer"
+          },
+          "auctions": {
+            "items": {
+              "$ref": "#/components/schemas/AuctionOut"
+            },
+            "title": "Auctions",
+            "type": "array"
+          },
+          "built_at": {
+            "title": "Built At",
+            "type": "string"
+          },
+          "capacity_proxy_mw": {
+            "title": "Capacity Proxy Mw",
+            "type": "number"
+          },
+          "data_version": {
+            "title": "Data Version",
+            "type": "string"
+          },
+          "default_scope": {
+            "title": "Default Scope",
+            "type": "string"
+          },
+          "fetched_at": {
+            "title": "Fetched At",
+            "type": "string"
+          },
+          "forecast_publish_first": {
+            "format": "date-time",
+            "title": "Forecast Publish First",
+            "type": "string"
+          },
+          "forecast_publish_last": {
+            "format": "date-time",
+            "title": "Forecast Publish Last",
+            "type": "string"
+          },
+          "forecast_rows": {
+            "title": "Forecast Rows",
+            "type": "integer"
+          },
+          "forecast_runs": {
+            "title": "Forecast Runs",
+            "type": "integer"
+          },
+          "matching_rules": {
+            "items": {
+              "$ref": "#/components/schemas/MatchingRule"
+            },
+            "title": "Matching Rules",
+            "type": "array"
+          },
+          "max_horizon_h": {
+            "title": "Max Horizon H",
+            "type": "integer"
+          },
+          "scopes": {
+            "items": {
+              "$ref": "#/components/schemas/ScopePreset"
+            },
+            "title": "Scopes",
+            "type": "array"
+          },
+          "source": {
+            "title": "Source",
+            "type": "string"
+          },
+          "trailing_days": {
+            "title": "Trailing Days",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "data_version",
+          "fetched_at",
+          "built_at",
+          "source",
+          "forecast_runs",
+          "forecast_rows",
+          "actual_rows",
+          "forecast_publish_first",
+          "forecast_publish_last",
+          "actual_first",
+          "actual_last",
+          "capacity_proxy_mw",
+          "auctions",
+          "scopes",
+          "default_scope",
+          "matching_rules",
+          "trailing_days",
+          "max_horizon_h"
+        ],
+        "title": "MetaOut",
+        "type": "object"
+      },
+      "ModelScore": {
+        "additionalProperties": false,
+        "properties": {
+          "bias_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bias Mw"
+          },
+          "mae_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mae Mw"
+          },
+          "model": {
+            "enum": [
+              "raw",
+              "debiased",
+              "ratio",
+              "persistence"
+            ],
+            "title": "Model",
+            "type": "string"
+          },
+          "n": {
+            "title": "N",
+            "type": "integer"
+          },
+          "rmse_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rmse Mw"
+          },
+          "skill_vs_persistence": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Skill Vs Persistence"
+          },
+          "skill_vs_raw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Skill Vs Raw"
+          }
+        },
+        "required": [
+          "model",
+          "n",
+          "bias_mw",
+          "mae_mw",
+          "rmse_mw",
+          "skill_vs_raw",
+          "skill_vs_persistence"
+        ],
+        "title": "ModelScore",
+        "type": "object"
+      },
+      "ModelsOut": {
+        "additionalProperties": false,
+        "properties": {
+          "auction": {
+            "$ref": "#/components/schemas/AuctionId"
+          },
+          "band": {
+            "$ref": "#/components/schemas/BandCoverage"
+          },
+          "daily": {
+            "items": {
+              "$ref": "#/components/schemas/DailyModelError"
+            },
+            "title": "Daily",
+            "type": "array"
+          },
+          "scores": {
+            "items": {
+              "$ref": "#/components/schemas/ModelScore"
+            },
+            "title": "Scores",
+            "type": "array"
+          },
+          "trailing_days": {
+            "title": "Trailing Days",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "auction",
+          "scores",
+          "band",
+          "daily",
+          "trailing_days"
+        ],
+        "title": "ModelsOut",
+        "type": "object"
+      },
+      "QualityOut": {
+        "additionalProperties": false,
+        "properties": {
+          "actual_publication_lag": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "title": "Actual Publication Lag",
+            "type": "object"
+          },
+          "implausible_values": {
+            "title": "Implausible Values",
+            "type": "integer"
+          },
+          "incomplete_days": {
+            "title": "Incomplete Days",
+            "type": "integer"
+          },
+          "ingest_issues": {
+            "items": {
+              "$ref": "#/components/schemas/IssueOut"
+            },
+            "title": "Ingest Issues",
+            "type": "array"
+          },
+          "late_runs": {
+            "items": {
+              "$ref": "#/components/schemas/LateRun"
+            },
+            "title": "Late Runs",
+            "type": "array"
+          },
+          "missing_runs": {
+            "items": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "title": "Missing Runs",
+            "type": "array"
+          },
+          "past_target_rows": {
+            "description": "Forecast rows whose target had already started at publication (never used)",
+            "title": "Past Target Rows",
+            "type": "integer"
+          },
+          "period_completeness": {
+            "items": {
+              "$ref": "#/components/schemas/DayCompleteness"
+            },
+            "title": "Period Completeness",
+            "type": "array"
+          },
+          "points_per_run_expected": {
+            "title": "Points Per Run Expected",
+            "type": "integer"
+          },
+          "runs_per_day_expected": {
+            "title": "Runs Per Day Expected",
+            "type": "integer"
+          },
+          "runs_total": {
+            "title": "Runs Total",
+            "type": "integer"
+          },
+          "short_runs": {
+            "title": "Short Runs",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "runs_total",
+          "runs_per_day_expected",
+          "late_runs",
+          "missing_runs",
+          "short_runs",
+          "points_per_run_expected",
+          "period_completeness",
+          "incomplete_days",
+          "actual_publication_lag",
+          "implausible_values",
+          "ingest_issues",
+          "past_target_rows"
+        ],
+        "title": "QualityOut",
+        "type": "object"
+      },
+      "RampEvent": {
+        "additionalProperties": false,
+        "properties": {
+          "delta_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Delta Mw"
+          },
+          "direction": {
+            "enum": [
+              "up",
+              "down"
+            ],
+            "title": "Direction",
+            "type": "string"
+          },
+          "outcome": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Outcome"
+          },
+          "start_time": {
+            "format": "date-time",
+            "title": "Start Time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "start_time",
+          "direction",
+          "delta_mw",
+          "outcome"
+        ],
+        "title": "RampEvent",
+        "type": "object"
+      },
+      "RampScores": {
+        "additionalProperties": false,
+        "properties": {
+          "correct_negatives": {
+            "title": "Correct Negatives",
+            "type": "integer"
+          },
+          "csi": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Csi"
+          },
+          "false_alarms": {
+            "title": "False Alarms",
+            "type": "integer"
+          },
+          "far": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Far"
+          },
+          "hits": {
+            "title": "Hits",
+            "type": "integer"
+          },
+          "misses": {
+            "title": "Misses",
+            "type": "integer"
+          },
+          "pod": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pod"
+          }
+        },
+        "required": [
+          "hits",
+          "misses",
+          "false_alarms",
+          "correct_negatives",
+          "pod",
+          "far",
+          "csi"
+        ],
+        "title": "RampScores",
+        "type": "object"
+      },
+      "RampsOut": {
+        "additionalProperties": false,
+        "properties": {
+          "events": {
+            "items": {
+              "$ref": "#/components/schemas/RampEvent"
+            },
+            "title": "Events",
+            "type": "array"
+          },
+          "horizon_h": {
+            "title": "Horizon H",
+            "type": "integer"
+          },
+          "scores": {
+            "$ref": "#/components/schemas/RampScores"
+          },
+          "threshold_mw": {
+            "title": "Threshold Mw",
+            "type": "number"
+          },
+          "tolerance_h": {
+            "title": "Tolerance H",
+            "type": "integer"
+          },
+          "window_h": {
+            "title": "Window H",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "horizon_h",
+          "threshold_mw",
+          "window_h",
+          "tolerance_h",
+          "scores",
+          "events"
+        ],
+        "title": "RampsOut",
+        "type": "object"
+      },
+      "ResponseMeta": {
+        "additionalProperties": false,
+        "properties": {
+          "data_version": {
+            "description": "Hash of the raw snapshot behind this response",
+            "title": "Data Version",
+            "type": "string"
+          },
+          "generated_at": {
+            "format": "date-time",
+            "title": "Generated At",
+            "type": "string"
+          },
+          "params": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "title": "Params",
+            "type": "object"
+          }
+        },
+        "required": [
+          "data_version",
+          "generated_at",
+          "params"
+        ],
+        "title": "ResponseMeta",
+        "type": "object"
+      },
+      "RevisionPoint": {
+        "additionalProperties": false,
+        "properties": {
+          "forecast_mw": {
+            "title": "Forecast Mw",
+            "type": "number"
+          },
+          "start_time": {
+            "format": "date-time",
+            "title": "Start Time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "start_time",
+          "forecast_mw"
+        ],
+        "title": "RevisionPoint",
+        "type": "object"
+      },
+      "RevisionRun": {
+        "additionalProperties": false,
+        "properties": {
+          "available": {
+            "description": "Published at or before the decision cutoff",
+            "title": "Available",
+            "type": "boolean"
+          },
+          "points": {
+            "items": {
+              "$ref": "#/components/schemas/RevisionPoint"
+            },
+            "title": "Points",
+            "type": "array"
+          },
+          "publish_time": {
+            "format": "date-time",
+            "title": "Publish Time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "publish_time",
+          "available",
+          "points"
+        ],
+        "title": "RevisionRun",
+        "type": "object"
+      },
+      "RevisionsOut": {
+        "additionalProperties": false,
+        "properties": {
+          "actual": {
+            "description": "Hourly outturn under the chosen matching rule",
+            "items": {
+              "$ref": "#/components/schemas/ActualPoint"
+            },
+            "title": "Actual",
+            "type": "array"
+          },
+          "cutoff": {
+            "format": "date-time",
+            "title": "Cutoff",
+            "type": "string"
+          },
+          "delivery_date": {
+            "format": "date",
+            "title": "Delivery Date",
+            "type": "string"
+          },
+          "runs": {
+            "description": "Every run covering the day, oldest first",
+            "items": {
+              "$ref": "#/components/schemas/RevisionRun"
+            },
+            "title": "Runs",
+            "type": "array"
+          },
+          "used_publish_time": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Newest run available at the cutoff",
+            "title": "Used Publish Time"
+          }
+        },
+        "required": [
+          "delivery_date",
+          "cutoff",
+          "used_publish_time",
+          "runs",
+          "actual"
+        ],
+        "title": "RevisionsOut",
+        "type": "object"
+      },
+      "RunInfo": {
+        "additionalProperties": false,
+        "properties": {
+          "available": {
+            "description": "Published at or before the decision cutoff",
+            "title": "Available",
+            "type": "boolean"
+          },
+          "delay_min": {
+            "title": "Delay Min",
+            "type": "number"
+          },
+          "late": {
+            "title": "Late",
+            "type": "boolean"
+          },
+          "points": {
+            "title": "Points",
+            "type": "integer"
+          },
+          "publish_time": {
+            "format": "date-time",
+            "title": "Publish Time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "publish_time",
+          "points",
+          "available",
+          "late",
+          "delay_min"
+        ],
+        "title": "RunInfo",
+        "type": "object"
+      },
+      "ScopePreset": {
+        "additionalProperties": false,
+        "properties": {
+          "delivery_first": {
+            "format": "date",
+            "title": "Delivery First",
+            "type": "string"
+          },
+          "delivery_last": {
+            "format": "date",
+            "title": "Delivery Last",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "label",
+          "description",
+          "delivery_first",
+          "delivery_last"
+        ],
+        "title": "ScopePreset",
+        "type": "object"
+      },
+      "Summary": {
+        "additionalProperties": false,
+        "properties": {
+          "abs_err_p90_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Abs Err P90 Mw"
+          },
+          "bias_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bias Mw"
+          },
+          "err_p10_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Err P10 Mw"
+          },
+          "err_p50_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Err P50 Mw"
+          },
+          "err_p90_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Err P90 Mw"
+          },
+          "mae_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mae Mw"
+          },
+          "mean_actual_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mean Actual Mw"
+          },
+          "mean_forecast_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mean Forecast Mw"
+          },
+          "n": {
+            "title": "N",
+            "type": "integer"
+          },
+          "nmae": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "MAE / capacity proxy (max observed outturn)",
+            "title": "Nmae"
+          },
+          "rmse_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rmse Mw"
+          },
+          "wape": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Sum |error| / sum actual",
+            "title": "Wape"
+          }
+        },
+        "required": [
+          "n",
+          "bias_mw",
+          "mae_mw",
+          "rmse_mw",
+          "wape",
+          "nmae",
+          "err_p10_mw",
+          "err_p50_mw",
+          "err_p90_mw",
+          "abs_err_p90_mw",
+          "mean_actual_mw",
+          "mean_forecast_mw"
+        ],
+        "title": "Summary",
+        "type": "object"
+      },
+      "ValidationError": {
+        "properties": {
+          "ctx": {
+            "title": "Context",
+            "type": "object"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "title": "Location",
+            "type": "array"
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError",
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "summary": "Point-in-time GB wind forecasts and their measured accuracy.",
+    "title": "Wind Forecast Desk API",
+    "version": "0.1.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/api/accuracy": {
+      "get": {
+        "description": "Error by horizon, hour, wind level and day.",
+        "operationId": "accuracy_api_accuracy_get",
+        "parameters": [
+          {
+            "description": "First delivery day (UK local), inclusive",
+            "in": "query",
+            "name": "first",
+            "required": true,
+            "schema": {
+              "description": "First delivery day (UK local), inclusive",
+              "format": "date",
+              "title": "First",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Last delivery day (UK local), inclusive",
+            "in": "query",
+            "name": "last",
+            "required": true,
+            "schema": {
+              "description": "Last delivery day (UK local), inclusive",
+              "format": "date",
+              "title": "Last",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Forecast horizon in hours",
+            "in": "query",
+            "name": "horizon_h",
+            "required": false,
+            "schema": {
+              "default": 24,
+              "description": "Forecast horizon in hours",
+              "maximum": 48,
+              "minimum": 0,
+              "title": "Horizon H",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Hourly matching rule",
+            "in": "query",
+            "name": "matching",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/MatchingRule",
+              "default": "hour_mean",
+              "description": "Hourly matching rule"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_AccuracyOut_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Accuracy",
+        "tags": [
+          "analytics"
+        ]
+      }
+    },
+    "/api/decision": {
+      "get": {
+        "description": "What the desk could see at gate closure for one delivery day, with an error band.",
+        "operationId": "decision_api_decision_get",
+        "parameters": [
+          {
+            "description": "Delivery day (UK local)",
+            "in": "query",
+            "name": "delivery_date",
+            "required": true,
+            "schema": {
+              "description": "Delivery day (UK local)",
+              "format": "date",
+              "title": "Delivery Date",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Safety margin before gate",
+            "in": "query",
+            "name": "margin_min",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "description": "Safety margin before gate",
+              "maximum": 720,
+              "minimum": 0,
+              "title": "Margin Min",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Hourly matching rule",
+            "in": "query",
+            "name": "matching",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/MatchingRule",
+              "default": "hour_mean",
+              "description": "Hourly matching rule"
+            }
+          },
+          {
+            "in": "query",
+            "name": "auction",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/AuctionId"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": "n2ex_da",
+              "title": "Auction"
+            }
+          },
+          {
+            "description": "Custom gate time HH:MM (UK local, D-1); overrides auction",
+            "in": "query",
+            "name": "gate_local",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Custom gate time HH:MM (UK local, D-1); overrides auction",
+              "title": "Gate Local"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_DecisionOut_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Decision",
+        "tags": [
+          "analytics"
+        ]
+      }
+    },
+    "/api/export/pairs.csv": {
+      "get": {
+        "description": "The exact forecast/actual pairs behind the metrics, as CSV.\n\nPass ``auction`` for gate-closure pairs (with model outputs) or\n``horizon_h`` for fixed-horizon pairs.",
+        "operationId": "export_pairs_api_export_pairs_csv_get",
+        "parameters": [
+          {
+            "description": "First delivery day (UK local), inclusive",
+            "in": "query",
+            "name": "first",
+            "required": true,
+            "schema": {
+              "description": "First delivery day (UK local), inclusive",
+              "format": "date",
+              "title": "First",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Last delivery day (UK local), inclusive",
+            "in": "query",
+            "name": "last",
+            "required": true,
+            "schema": {
+              "description": "Last delivery day (UK local), inclusive",
+              "format": "date",
+              "title": "Last",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Hourly matching rule",
+            "in": "query",
+            "name": "matching",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/MatchingRule",
+              "default": "hour_mean",
+              "description": "Hourly matching rule"
+            }
+          },
+          {
+            "in": "query",
+            "name": "horizon_h",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "description": "Forecast horizon in hours",
+                  "maximum": 48,
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Horizon H"
+            }
+          },
+          {
+            "in": "query",
+            "name": "auction",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/AuctionId"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Auction"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "text/csv": {}
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Export Pairs",
+        "tags": [
+          "analytics"
+        ]
+      }
+    },
+    "/api/horizon": {
+      "get": {
+        "description": "Forecast vs actual where each forecast is the latest run made >= horizon_h earlier.",
+        "operationId": "horizon_api_horizon_get",
+        "parameters": [
+          {
+            "description": "First delivery day (UK local), inclusive",
+            "in": "query",
+            "name": "first",
+            "required": true,
+            "schema": {
+              "description": "First delivery day (UK local), inclusive",
+              "format": "date",
+              "title": "First",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Last delivery day (UK local), inclusive",
+            "in": "query",
+            "name": "last",
+            "required": true,
+            "schema": {
+              "description": "Last delivery day (UK local), inclusive",
+              "format": "date",
+              "title": "Last",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Forecast horizon in hours",
+            "in": "query",
+            "name": "horizon_h",
+            "required": false,
+            "schema": {
+              "default": 24,
+              "description": "Forecast horizon in hours",
+              "maximum": 48,
+              "minimum": 0,
+              "title": "Horizon H",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Hourly matching rule",
+            "in": "query",
+            "name": "matching",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/MatchingRule",
+              "default": "hour_mean",
+              "description": "Hourly matching rule"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_HorizonOut_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Horizon",
+        "tags": [
+          "analytics"
+        ]
+      }
+    },
+    "/api/meta": {
+      "get": {
+        "description": "Dataset coverage, version, auction presets and scope presets.",
+        "operationId": "meta_api_meta_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_MetaOut_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Meta",
+        "tags": [
+          "analytics"
+        ]
+      }
+    },
+    "/api/models": {
+      "get": {
+        "description": "Out-of-sample skill of bias corrections and baselines at an auction's gate.",
+        "operationId": "models_api_models_get",
+        "parameters": [
+          {
+            "description": "First delivery day (UK local), inclusive",
+            "in": "query",
+            "name": "first",
+            "required": true,
+            "schema": {
+              "description": "First delivery day (UK local), inclusive",
+              "format": "date",
+              "title": "First",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Last delivery day (UK local), inclusive",
+            "in": "query",
+            "name": "last",
+            "required": true,
+            "schema": {
+              "description": "Last delivery day (UK local), inclusive",
+              "format": "date",
+              "title": "Last",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "auction",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/AuctionId",
+              "default": "n2ex_da"
+            }
+          },
+          {
+            "description": "Hourly matching rule",
+            "in": "query",
+            "name": "matching",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/MatchingRule",
+              "default": "hour_mean",
+              "description": "Hourly matching rule"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_ModelsOut_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Models",
+        "tags": [
+          "analytics"
+        ]
+      }
+    },
+    "/api/quality": {
+      "get": {
+        "description": "Late/missing runs, period completeness, publication lag, ingest issues.",
+        "operationId": "quality_api_quality_get",
+        "parameters": [
+          {
+            "description": "First delivery day (UK local), inclusive",
+            "in": "query",
+            "name": "first",
+            "required": true,
+            "schema": {
+              "description": "First delivery day (UK local), inclusive",
+              "format": "date",
+              "title": "First",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Last delivery day (UK local), inclusive",
+            "in": "query",
+            "name": "last",
+            "required": true,
+            "schema": {
+              "description": "Last delivery day (UK local), inclusive",
+              "format": "date",
+              "title": "Last",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_QualityOut_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Quality",
+        "tags": [
+          "analytics"
+        ]
+      }
+    },
+    "/api/ramps": {
+      "get": {
+        "description": "Ramp-event detection: hits, misses and false alarms.",
+        "operationId": "ramps_api_ramps_get",
+        "parameters": [
+          {
+            "description": "First delivery day (UK local), inclusive",
+            "in": "query",
+            "name": "first",
+            "required": true,
+            "schema": {
+              "description": "First delivery day (UK local), inclusive",
+              "format": "date",
+              "title": "First",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Last delivery day (UK local), inclusive",
+            "in": "query",
+            "name": "last",
+            "required": true,
+            "schema": {
+              "description": "Last delivery day (UK local), inclusive",
+              "format": "date",
+              "title": "Last",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Forecast horizon in hours",
+            "in": "query",
+            "name": "horizon_h",
+            "required": false,
+            "schema": {
+              "default": 24,
+              "description": "Forecast horizon in hours",
+              "maximum": 48,
+              "minimum": 0,
+              "title": "Horizon H",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "threshold_mw",
+            "required": false,
+            "schema": {
+              "default": 2000,
+              "exclusiveMinimum": 0,
+              "maximum": 10000,
+              "title": "Threshold Mw",
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "window_h",
+            "required": false,
+            "schema": {
+              "default": 3,
+              "maximum": 12,
+              "minimum": 1,
+              "title": "Window H",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "tolerance_h",
+            "required": false,
+            "schema": {
+              "default": 1,
+              "maximum": 6,
+              "minimum": 0,
+              "title": "Tolerance H",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Hourly matching rule",
+            "in": "query",
+            "name": "matching",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/MatchingRule",
+              "default": "hour_mean",
+              "description": "Hourly matching rule"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_RampsOut_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Ramps",
+        "tags": [
+          "analytics"
+        ]
+      }
+    },
+    "/api/revisions": {
+      "get": {
+        "description": "Every forecast run that covered one delivery day, and which were available at the gate.",
+        "operationId": "revisions_api_revisions_get",
+        "parameters": [
+          {
+            "description": "Delivery day (UK local)",
+            "in": "query",
+            "name": "delivery_date",
+            "required": true,
+            "schema": {
+              "description": "Delivery day (UK local)",
+              "format": "date",
+              "title": "Delivery Date",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Safety margin before gate",
+            "in": "query",
+            "name": "margin_min",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "description": "Safety margin before gate",
+              "maximum": 720,
+              "minimum": 0,
+              "title": "Margin Min",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Hourly matching rule",
+            "in": "query",
+            "name": "matching",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/MatchingRule",
+              "default": "hour_mean",
+              "description": "Hourly matching rule"
+            }
+          },
+          {
+            "in": "query",
+            "name": "auction",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/AuctionId"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": "n2ex_da",
+              "title": "Auction"
+            }
+          },
+          {
+            "description": "Custom gate time HH:MM (UK local, D-1); overrides auction",
+            "in": "query",
+            "name": "gate_local",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Custom gate time HH:MM (UK local, D-1); overrides auction",
+              "title": "Gate Local"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_RevisionsOut_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Revisions",
+        "tags": [
+          "analytics"
+        ]
+      }
+    },
+    "/healthz": {
+      "get": {
+        "operationId": "healthz_healthz_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "title": "Response Healthz Healthz Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Healthz",
+        "tags": [
+          "ops"
+        ]
+      }
+    }
+  }
+}

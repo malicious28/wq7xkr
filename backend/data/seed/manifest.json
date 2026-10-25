@@ -1,0 +1,70 @@
+{
+  "data_version": "c589a65ee65e",
+  "fetched_at": "2026-10-24T23:32:17+00:00",
+  "files": [
+    {
+      "dataset": "WINDFOR",
+      "end": "2025-12-01",
+      "key": "WINDFOR_2025-11-29_2025-12-01",
+      "path": "windfor/WINDFOR_2025-11-29_2025-12-01.json.gz",
+      "rows": 1168,
+      "sha256": "b4093871d467154cd157ca5bc8aa952edd2c2a43631cf7f54668ad0d2ea5ac44",
+      "start": "2025-11-29"
+    },
+    {
+      "dataset": "WINDFOR",
+      "end": "2026-01-01",
+      "key": "WINDFOR_2025-12-01_2026-01-01",
+      "path": "windfor/WINDFOR_2025-12-01_2026-01-01.json.gz",
+      "rows": 18104,
+      "sha256": "9d82553671184e2cddd323321b2cfc6e06c1d599aac28de9ad225d4edc4aca2d",
+      "start": "2025-12-01"
+    },
+    {
+      "dataset": "WINDFOR",
+      "end": "2026-02-01",
+      "key": "WINDFOR_2026-01-01_2026-02-01",
+      "path": "windfor/WINDFOR_2026-01-01_2026-02-01.json.gz",
+      "rows": 18104,
+      "sha256": "3b4fd1961080c7ff90c2402a4360837640907cc64b535c3dbb8111a286ac1200",
+      "start": "2026-01-01"
+    },
+    {
+      "dataset": "WINDFOR",
+      "end": "2026-02-02",
+      "key": "WINDFOR_2026-02-01_2026-02-02",
+      "path": "windfor/WINDFOR_2026-02-01_2026-02-02.json.gz",
+      "rows": 584,
+      "sha256": "72d11b762cae2852e5447966dea513bcd7adb6b22146fe69674f4a12b746fabe",
+      "start": "2026-02-01"
+    },
+    {
+      "dataset": "FUELHH",
+      "end": "2026-01-01",
+      "key": "FUELHH_2025-12-01_2026-01-01",
+      "path": "fuelhh/FUELHH_2025-12-01_2026-01-01.json.gz",
+      "rows": 1488,
+      "sha256": "8d24d1f1b10a8a00be6898f6946f0b9bf7b09dc9af609a84988efa3642d2323a",
+      "start": "2025-12-01"
+    },
+    {
+      "dataset": "FUELHH",
+      "end": "2026-02-01",
+      "key": "FUELHH_2026-01-01_2026-02-01",
+      "path": "fuelhh/FUELHH_2026-01-01_2026-02-01.json.gz",
+      "rows": 1488,
+      "sha256": "2bc48664b08f399baf48369984e77000003f040a6decd48012edb4850bd74c5e",
+      "start": "2026-01-01"
+    },
+    {
+      "dataset": "FUELHH",
+      "end": "2026-02-02",
+      "key": "FUELHH_2026-02-01_2026-02-02",
+      "path": "fuelhh/FUELHH_2026-02-01_2026-02-02.json.gz",
+      "rows": 48,
+      "sha256": "872c13f110bbe3fccee272994e94a0bad03b8a20ad2e6e4fe5ec2a1e50b3b0e3",
+      "start": "2026-02-01"
+    }
+  ],
+  "source": "https://data.elexon.co.uk/bmrs/api/v1"
+}

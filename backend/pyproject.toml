@@ -1,0 +1,82 @@
+[project]
+name = "windesk"
+version = "0.1.0"
+description = "GB wind forecast desk: point-in-time forecasts and accuracy analytics for day-ahead buyers"
+authors = [
+    { name = "malicious28", email = "malicious28@users.noreply.github.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi>=0.162.0",
+    "httpx>=0.28.1",
+    "polars>=2.0.0",
+    "pydantic>=2.14.1",
+    "pydantic-settings>=2.16.1",
+    "structlog>=26.1.0",
+    "tenacity>=9.2.1",
+    "tzdata>=2026.5",
+    "uvicorn[standard]>=0.54.0",
+]
+
+[build-system]
+requires = ["uv_build>=0.13.5,<0.14.0"]
+build-backend = "uv_build"
+
+[tool.uv]
+# Local dev and CI get everything; the runtime image installs neither group.
+default-groups = ["dev", "build"]
+
+[dependency-groups]
+# `windesk build` validates the warehouse in DuckDB; the API never imports it.
+build = ["duckdb>=2.0.0"]
+dev = [
+    "httpx2>=2.16.0",
+    "hypothesis>=6.170.9",
+    "mypy>=2.4.0",
+    "pytest>=9.1.1",
+    "pytest-asyncio>=1.4.0",
+    "pytest-cov>=7.1.0",
+    "respx>=0.23.1",
+    "ruff>=0.17.2",
+]
+
+[project.scripts]
+windesk = "windesk.cli:main"
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "B", "A", "C4", "DTZ", "T20", "SIM", "RUF", "PTH", "PL", "TRY", "PERF", "S"]
+ignore = ["PLR0913", "TRY003", "PLR2004"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101", "S608", "PLR2004", "DTZ001", "SLF001", "PLC0415"]
+"src/windesk/api/routes/**" = ["PLR0917"]  # FastAPI injects every query param positionally
+
+[tool.mypy]
+strict = true
+python_version = "3.13"
+plugins = ["pydantic.mypy"]
+files = ["src", "tests"]
+
+[[tool.mypy.overrides]]
+module = ["duckdb.*", "respx.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers -m \"not network\" --cov=windesk --cov-report=term-missing"
+asyncio_mode = "auto"
+markers = ["network: hits the live Elexon API (deselected by default)"]
+filterwarnings = ["error::DeprecationWarning:windesk.*"]
+
+[tool.coverage.run]
+branch = true
+source = ["windesk"]
+
+[tool.coverage.report]
+fail_under = 90
+exclude_also = ["if TYPE_CHECKING:", "raise NotImplementedError"]
