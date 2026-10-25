@@ -73,7 +73,7 @@
 }
 
 .statValue {
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 600;
   letter-spacing: -0.025em;
   line-height: 1.1;
@@ -81,7 +81,7 @@
 }
 
 .statLarge .statValue {
-  font-size: clamp(30px, 3.2vw, 44px);
+  font-size: clamp(26px, 2.5vw, 38px);
   letter-spacing: -0.035em;
 }
 
@@ -321,7 +321,7 @@
 }
 
 .pageTitle {
-  font-size: clamp(30px, 4vw, 44px);
+  font-size: clamp(26px, 3vw, 38px);
   letter-spacing: -0.035em;
 }
 
