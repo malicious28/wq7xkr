@@ -13,3 +13,6 @@ coverage/
 *.duckdb
 *.parquet
 .DS_Store
+*.building
+*.tsbuildinfo
+.coverage
