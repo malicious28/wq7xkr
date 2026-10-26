@@ -16,10 +16,57 @@ const NAV = [
   { to: '/models', label: 'Models' },
   { to: '/ramps', label: 'Ramps' },
   { to: '/quality', label: 'Data quality' },
+  { to: '/live', label: 'Try now', live: true },
 ]
+
+/**
+ * The tab strip scrolls sideways when it is narrower than the tabs. Its
+ * scrollbar is hidden, so: a vertical wheel scrolls it, the edges fade where
+ * tabs are hidden, and the active tab is always brought into view.
+ */
+function useTabStrip(pathname: string) {
+  const strip = useRef<HTMLUListElement | null>(null)
+
+  useEffect(() => {
+    const ul = strip.current
+    if (!ul) return
+    const mark = () => {
+      const max = ul.scrollWidth - ul.clientWidth
+      ul.dataset.fadeStart = String(ul.scrollLeft > 1)
+      ul.dataset.fadeEnd = String(ul.scrollLeft < max - 1)
+    }
+    const onWheel = (e: WheelEvent) => {
+      if (ul.scrollWidth <= ul.clientWidth || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return
+      e.preventDefault()
+      ul.scrollLeft += e.deltaY
+    }
+    const resize = new ResizeObserver(mark)
+    resize.observe(ul)
+    ul.addEventListener('scroll', mark, { passive: true })
+    ul.addEventListener('wheel', onWheel, { passive: false })
+    return () => {
+      resize.disconnect()
+      ul.removeEventListener('scroll', mark)
+      ul.removeEventListener('wheel', onWheel)
+    }
+  }, [])
+
+  useEffect(() => {
+    const ul = strip.current
+    const active = ul?.querySelector<HTMLElement>('[aria-current="page"]')
+    if (!ul || !active) return
+    const left = active.offsetLeft - ul.offsetLeft
+    if (left < ul.scrollLeft || left + active.offsetWidth > ul.scrollLeft + ul.clientWidth) {
+      ul.scrollTo({ left: left - (ul.clientWidth - active.offsetWidth) / 2, behavior: 'smooth' })
+    }
+  }, [pathname])
+
+  return strip
+}
 
 function GlassNav({ onMethodology }: { onMethodology: () => void }) {
   const glass = useRef<HTMLDivElement | null>(null)
+  const strip = useTabStrip(useLocation().pathname)
   const { registerGlass } = useMotion()
   const { theme, toggle } = useTheme()
 
@@ -50,7 +97,7 @@ function GlassNav({ onMethodology }: { onMethodology: () => void }) {
             </span>
             <span className={s.brandText}>Windesk</span>
           </NavLink>
-          <ul className={s.links} data-lenis-prevent>
+          <ul ref={strip} className={s.links} data-lenis-prevent>
             {NAV.map((n) => (
               <li key={n.to}>
                 <NavLink
@@ -58,6 +105,7 @@ function GlassNav({ onMethodology }: { onMethodology: () => void }) {
                   end={n.end}
                   className={({ isActive }) => (isActive ? `${s.link} ${s.linkActive}` : s.link)}
                 >
+                  {'live' in n && <span className={s.liveDot} aria-hidden />}
                   {n.label}
                 </NavLink>
               </li>

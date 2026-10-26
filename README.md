@@ -12,6 +12,7 @@ A web app for a UK utility's day-ahead trading desk. It shows **the national win
 |---|---|---|
 | 1. The latest renewable forecast available when the decision is made | **Decision** | For a delivery day and an auction (N2EX 09:50, EPEX 60-min 09:20, EPEX half-hourly 15:30, or a custom gate and margin), it picks the newest WINDFOR run published before the gate. It shows the run's age, late or missed runs, a P10–P90 range built only from errors known at the gate, a bias-adjusted line, and, with hindsight, the outturn. |
 | 2. Quantify forecast accuracy | **Horizon**, **Accuracy**, **Models**, **Ramps** | Forecast vs actual at any horizon from 0 to 48 h; bias, MAE, RMSE, WAPE and nMAE by horizon, hour of day, wind level and day; out-of-sample skill of bias corrections and the calibration of the 80% band; ramp-event hit rates. |
+| Beyond January | **Try now** | The same pipeline on live Elexon data from 1 October 2026: tomorrow's WINDFOR forecast, Windesk's corrected forecast and a safe minimum (P10), updated after each new run until the gate; then, for every past day, what Elexon predicted, what Windesk predicted and what was actually generated. See [ADR 0008](docs/adr/0008-live-mode.md). |
 | Trust | **Data quality**, Methodology drawer, CSV export | Late or missing runs, settlement-period completeness that accounts for clock changes, publication lag, ingest anomalies. Every response and export is stamped with the `data_version` of the raw snapshot. |
 
 ### Headline findings (January 2026)
@@ -21,6 +22,10 @@ A web app for a UK utility's day-ahead trading desk. It shows **the national win
 - **Most of the error can be planned around:** a trailing ratio adjustment that only uses data available at each gate cuts MAE by **37%** out of sample. The 80% band covers **86%** of hours.
 
 Details: [`docs/findings.md`](docs/findings.md).
+
+**It keeps working on new data.** On the **Try now** page, from 1 to 25 October 2026 (600 scored hours at the N2EX gate), Elexon's day-ahead forecast missed by 2,385 MW an hour on average and Windesk's corrected forecast by 1,302 MW: **45% less error**, with 79% of hours inside the 80% band. These figures update as new days come in.
+
+![Try now](docs/images/live.png)
 
 | Decision view | Accuracy |
 |---|---|
@@ -57,7 +62,8 @@ One rule sits underneath everything ([ADR 0001](docs/adr/0001-point-in-time-sele
 │   │   ├── store/              warehouse.py (DuckDB build, atomic), repository.py (read side)
 │   │   ├── domain/             pure, I/O-free: clock.py (GB settlement time), auctions.py, asof.py,
 │   │   │                       matching.py, pairs.py, metrics.py, models.py, ramps.py, quality.py
-│   │   ├── services/           analytics.py (composition + memoisation)
+│   │   ├── services/           analytics.py (composition + memoisation), live.py (Try now: on-demand
+│   │   │                       Elexon fetch, run-aware refresh, stale fallback)
 │   │   ├── api/                app.py (factory, middleware, SPA), routes/, schemas.py (contract), deps.py
 │   │   ├── config.py           pydantic-settings (WINDESK_* env vars)
 │   │   ├── logs.py             structlog (JSON in prod)
@@ -66,12 +72,12 @@ One rule sits underneath everything ([ADR 0001](docs/adr/0001-point-in-time-sele
 │   │                           differential, golden values) api/ ; fixtures/ = recorded Elexon responses
 │   ├── data/seed/              committed raw snapshot (Dec 2025 – 1 Feb 2026, ~220 KB)
 │   ├── openapi.json            generated API contract (CI checks it is current)
-│   └── pyproject.toml, uv.lock ruff, mypy --strict, pytest, coverage gate 85%
+│   └── pyproject.toml, uv.lock ruff, mypy --strict, pytest, coverage gate 90%
 ├── frontend/                   React 19 · TypeScript (strict) · Vite 8
 │   └── src/
 │       ├── api/                schema.d.ts (generated), client.ts, hooks.ts (TanStack Query), types.ts
 │       ├── app/                AppShell (glass nav), router (code-split pages), MethodologyDrawer
-│       ├── pages/              Overview, Decision, Explorer (horizon), Accuracy, Models, Ramps, Quality
+│       ├── pages/              Overview, Decision, Explorer (horizon), Accuracy, Models, Ramps, Quality, Live
 │       ├── charts/             EChart wrapper + options/ (pure option builders, unit-tested)
 │       ├── components/         ui/ (Card, StatTile, Segmented, Slider, Callout, DataTable…),
 │       │                       RunTimeline, DayStepper, ScopeFilters, GlassPanel
@@ -82,7 +88,7 @@ One rule sits underneath everything ([ADR 0001](docs/adr/0001-point-in-time-sele
 ├── docs/
 │   ├── research.md             pre-implementation research and design brief
 │   ├── findings.md             what the data showed
-│   ├── adr/                    architecture decision records 0001–0006
+│   ├── adr/                    architecture decision records 0001–0008
 │   └── images/                 screenshots
 ├── Dockerfile                  multi-stage: build UI → install backend + bake warehouse → slim non-root runtime
 ├── docker-compose.yml          run the production image locally
@@ -156,11 +162,13 @@ Interactive docs at `/docs`. Every JSON response is `{ data, meta: { data_versio
 | `GET /api/ramps?first&last&horizon_h&threshold_mw&window_h&tolerance_h` | ramp hit, miss and false-alarm rates |
 | `GET /api/quality?first&last` | data-quality checks |
 | `GET /api/export/pairs.csv?first&last&(auction\|horizon_h)` | the exact pairs behind any metric |
+| `GET /api/live/summary?auction` | Try now: every day since `live_start` (Elexon, Windesk, P10, outturn, day MAE), the scoreboard, and freshness status |
+| `GET /api/live/day?delivery_date&auction` | Try now: one live day, hour by hour, in the Decision view's shape |
 | `GET /healthz` | liveness and data version |
 
 ## Scope interpretation
 
-"Purchase decisions made in January 2026" is read as **gate closures on 1–31 January**, which means **delivery days 2 January – 1 February**. Forecasts and actuals are fetched from December so that trailing statistics on 1 January only use genuinely earlier data. The UI offers "Delivery in January" as an alternative scope. Only the two Elexon datasets in the brief are used: `FUELHH` (fuel type `WIND`) and `WINDFOR`.
+"Purchase decisions made in January 2026" is read as **gate closures on 1–31 January**, which means **delivery days 2 January – 1 February**. Forecasts and actuals are fetched from December so that trailing statistics on 1 January only use genuinely earlier data. The UI offers "Delivery in January" as an alternative scope. Only the two Elexon datasets in the brief are used: `FUELHH` (fuel type `WIND`) and `WINDFOR`. The **Try now** page goes beyond the January scope on purpose. It uses the same two datasets, fetched live, so the method can be checked on days it has never seen.
 
 ## Deploy
 
@@ -187,6 +195,7 @@ No add-ons or other config vars are needed. Use a Basic dyno for reviews, becaus
 [0005](docs/adr/0005-deployment-single-container.md) deployment ·
 [0006](docs/adr/0006-ui-design-system.md) UI design system ·
 [0007](docs/adr/0007-lessons-from-comparable-tools.md) lessons from comparable tools ·
+[0008](docs/adr/0008-live-mode.md) live mode ·
 [competitive review](docs/competitive-review.md) of 13 comparable submissions
 
 ## Limitations and next steps
@@ -194,7 +203,8 @@ No add-ons or other config vars are needed. Use a Basic dyno for reviews, becaus
 - Testing the bias cause needs NESO balancing-action (BOA) volumes, which are outside the brief's data scope.
 - A multiplicative error band would likely calibrate better than the additive one (86% vs 80% nominal). It is not tuned on the evaluation month.
 - WINDFOR is hourly, so half-hourly products reuse the hourly value.
-- January is GMT. Clock-change logic is covered by tests but not exercised by this month's data.
+- January is GMT, so the study itself never meets a clock change. Live mode does: 25 October 2026 has 25 hours, and it is handled correctly.
+- Live data is fetched on request and held in memory. It is not written to the warehouse or covered by `data_version`, and a cold fetch takes a few seconds.
 
 ## Use of AI tools
 

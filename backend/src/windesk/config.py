@@ -43,6 +43,10 @@ class Settings(BaseSettings):
     decision_start: date = date(2026, 1, 1)
     decision_end: date = date(2026, 1, 31)
 
+    # Live mode ('Try now'): days from this date onward are fetched from Elexon on demand.
+    live_start: date = date(2026, 10, 1)
+    live_enabled: bool = True
+
     # Trailing window used for out-of-sample error bands and bias correction.
     trailing_days: int = 28
     cors_origins: list[str] = ["http://localhost:5173"]

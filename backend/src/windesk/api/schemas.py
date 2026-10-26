@@ -174,6 +174,60 @@ class RevisionsOut(Schema):
     actual: list[ActualPoint] = Field(description="Hourly outturn under the chosen matching rule")
 
 
+# --- live ("Try now") -----------------------------------------------------------------------
+
+
+class LiveStatus(Schema):
+    fetched_at: datetime = Field(description="When Elexon was last read; results are as of then")
+    newest_run: datetime | None = Field(description="Publish time of the newest WINDFOR run")
+    newest_actual: datetime | None = Field(description="Start of the newest published half-hour")
+    next_refresh: datetime = Field(description="When the next forecast run should have landed")
+    stale: bool = Field(description="Elexon could not be reached; showing the last good data")
+    auction: AuctionId
+    gate_local: str
+    live_start: date
+
+
+class LiveDay(Schema):
+    delivery_date: date
+    cutoff: datetime
+    gate_passed: bool = Field(description="False: the gate is still ahead, so this may update")
+    run_publish_time: datetime | None
+    status: Literal["final", "in_progress", "upcoming"]
+    hours_in_day: int = Field(description="23, 24 or 25: clock-change days are short or long")
+    hours_forecast: int
+    hours_actual: int
+    elexon_mae_mw: float | None
+    windesk_mae_mw: float | None
+    energy_elexon_mwh: float | None
+    energy_windesk_mwh: float | None
+    energy_p10_mwh: float | None
+    energy_actual_mwh: float | None
+
+
+class LiveScore(Schema):
+    n_hours: int
+    elexon_mae_mw: float | None
+    windesk_mae_mw: float | None
+    skill: float | None = Field(description="1 - Windesk MAE / Elexon MAE")
+    band_coverage: float | None
+    elexon_bias_mw: float | None
+    windesk_bias_mw: float | None
+
+
+class LiveSummaryOut(Schema):
+    status: LiveStatus
+    days: list[LiveDay]
+    scoreboard: LiveScore
+
+
+class LiveDayOut(Schema):
+    status: LiveStatus
+    day: LiveDay
+    points: list[DecisionPoint]
+    actuals_half_hourly: list[HalfHourActual]
+
+
 # --- horizon explorer ---------------------------------------------------------------------
 
 

@@ -35,6 +35,10 @@
   }
 }
 
+.chartGap {
+  margin-top: 20px;
+}
+
 .chartToggles {
   display: flex;
   flex-wrap: wrap;

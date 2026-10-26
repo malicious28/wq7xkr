@@ -14,6 +14,7 @@ const AccuracyPage = lazy(() => import('../pages/AccuracyPage'))
 const ModelsPage = lazy(() => import('../pages/ModelsPage'))
 const RampsPage = lazy(() => import('../pages/RampsPage'))
 const QualityPage = lazy(() => import('../pages/QualityPage'))
+const LivePage = lazy(() => import('../pages/LivePage'))
 
 const page = (node: ReactNode) => <Suspense fallback={<Loading />}>{node}</Suspense>
 
@@ -29,6 +30,7 @@ const routes = [
       { path: 'models', element: page(<ModelsPage />) },
       { path: 'ramps', element: page(<RampsPage />) },
       { path: 'quality', element: page(<QualityPage />) },
+      { path: 'live', element: page(<LivePage />) },
       { path: '*', element: <NotFound /> },
     ],
   },

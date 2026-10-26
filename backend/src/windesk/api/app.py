@@ -6,6 +6,7 @@ React app at ``/`` (single origin: no CORS, one deploy).
 
 from __future__ import annotations
 
+import asyncio
 import time
 import uuid
 from collections.abc import AsyncIterator, Awaitable, Callable
@@ -21,9 +22,11 @@ from fastapi.staticfiles import StaticFiles
 
 from windesk import __version__
 from windesk.api.routes.analytics import router as analytics_router
+from windesk.api.routes.live import router as live_router
 from windesk.config import Settings, get_settings
 from windesk.logs import configure_logging, get_logger
 from windesk.services.analytics import Analytics
+from windesk.services.live import LiveService, LiveUnavailableError
 from windesk.store.repository import load_warehouse, serving_dir
 
 log = get_logger(__name__)
@@ -49,7 +52,18 @@ def _load(settings: Settings) -> Analytics:
     return Analytics(load_warehouse(settings.warehouse_path), settings)
 
 
-def create_app(settings: Settings | None = None, analytics: Analytics | None = None) -> FastAPI:
+async def _warm_live(live: LiveService) -> object:
+    try:
+        return await live.get()
+    except LiveUnavailableError:
+        return None  # the first live request will retry and report the outage
+
+
+def create_app(
+    settings: Settings | None = None,
+    analytics: Analytics | None = None,
+    live: LiveService | None = None,
+) -> FastAPI:
     settings = settings or get_settings()
     configure_logging(settings.log_level, json=settings.log_json)
 
@@ -60,8 +74,15 @@ def create_app(settings: Settings | None = None, analytics: Analytics | None = N
             started = time.perf_counter()
             app.state.analytics.prewarm()
             log.info("analytics.prewarmed", ms=round((time.perf_counter() - started) * 1000))
+        app.state.live = live or (LiveService(settings) if settings.live_enabled else None)
+        warm: asyncio.Task[object] | None = None
+        if live is None and app.state.live is not None and settings.env != "test":
+            # Fetch live data in the background: startup never waits on Elexon.
+            warm = asyncio.create_task(_warm_live(app.state.live))
         log.info("app.ready", data_version=app.state.analytics.data.data_version, env=settings.env)
         yield
+        if warm is not None:
+            warm.cancel()
 
     app = FastAPI(
         title="Wind Forecast Desk API",
@@ -111,6 +132,7 @@ def create_app(settings: Settings | None = None, analytics: Analytics | None = N
         return {"status": "ok", "version": __version__, "data_version": a.data.data_version}
 
     app.include_router(analytics_router)
+    app.include_router(live_router)
 
     if settings.static_dir is not None:
         _mount_spa(app, settings.static_dir)

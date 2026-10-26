@@ -135,3 +135,8 @@ export function ukWallClockMs(iso: string): number {
     Number(parts.second),
   )
 }
+
+/** Today's calendar date in the UK, e.g. "2026-10-26". */
+export function ukToday(now: Date = new Date()): string {
+  return new Date(ukWallClockMs(now.toISOString())).toISOString().slice(0, 10)
+}

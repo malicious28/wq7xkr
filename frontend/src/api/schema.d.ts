@@ -87,6 +87,46 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/live/day": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Live Day
+         * @description One live delivery day, hour by hour, in the same shape as the Decision view.
+         */
+        get: operations["live_day_api_live_day_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/live/summary": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Live Summary
+         * @description Every day since live_start: Elexon at the gate, Windesk's correction, and the outturn.
+         */
+        get: operations["live_summary_api_live_summary_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/meta": {
         parameters: {
             query?: never;
@@ -446,6 +486,16 @@ export interface components {
             data: components["schemas"]["HorizonOut"];
             meta: components["schemas"]["ResponseMeta"];
         };
+        /** Envelope[LiveDayOut] */
+        Envelope_LiveDayOut_: {
+            data: components["schemas"]["LiveDayOut"];
+            meta: components["schemas"]["ResponseMeta"];
+        };
+        /** Envelope[LiveSummaryOut] */
+        Envelope_LiveSummaryOut_: {
+            data: components["schemas"]["LiveSummaryOut"];
+            meta: components["schemas"]["ResponseMeta"];
+        };
         /** Envelope[MetaOut] */
         Envelope_MetaOut_: {
             data: components["schemas"]["MetaOut"];
@@ -596,6 +646,126 @@ export interface components {
             publish_time: string;
             /** Slot Utc */
             slot_utc: string;
+        };
+        /** LiveDay */
+        LiveDay: {
+            /**
+             * Cutoff
+             * Format: date-time
+             */
+            cutoff: string;
+            /**
+             * Delivery Date
+             * Format: date
+             */
+            delivery_date: string;
+            /** Elexon Mae Mw */
+            elexon_mae_mw: number | null;
+            /** Energy Actual Mwh */
+            energy_actual_mwh: number | null;
+            /** Energy Elexon Mwh */
+            energy_elexon_mwh: number | null;
+            /** Energy P10 Mwh */
+            energy_p10_mwh: number | null;
+            /** Energy Windesk Mwh */
+            energy_windesk_mwh: number | null;
+            /**
+             * Gate Passed
+             * @description False: the gate is still ahead, so this may update
+             */
+            gate_passed: boolean;
+            /** Hours Actual */
+            hours_actual: number;
+            /** Hours Forecast */
+            hours_forecast: number;
+            /**
+             * Hours In Day
+             * @description 23, 24 or 25: clock-change days are short or long
+             */
+            hours_in_day: number;
+            /** Run Publish Time */
+            run_publish_time: string | null;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "final" | "in_progress" | "upcoming";
+            /** Windesk Mae Mw */
+            windesk_mae_mw: number | null;
+        };
+        /** LiveDayOut */
+        LiveDayOut: {
+            /** Actuals Half Hourly */
+            actuals_half_hourly: components["schemas"]["HalfHourActual"][];
+            day: components["schemas"]["LiveDay"];
+            /** Points */
+            points: components["schemas"]["DecisionPoint"][];
+            status: components["schemas"]["LiveStatus"];
+        };
+        /** LiveScore */
+        LiveScore: {
+            /** Band Coverage */
+            band_coverage: number | null;
+            /** Elexon Bias Mw */
+            elexon_bias_mw: number | null;
+            /** Elexon Mae Mw */
+            elexon_mae_mw: number | null;
+            /** N Hours */
+            n_hours: number;
+            /**
+             * Skill
+             * @description 1 - Windesk MAE / Elexon MAE
+             */
+            skill: number | null;
+            /** Windesk Bias Mw */
+            windesk_bias_mw: number | null;
+            /** Windesk Mae Mw */
+            windesk_mae_mw: number | null;
+        };
+        /** LiveStatus */
+        LiveStatus: {
+            auction: components["schemas"]["AuctionId"];
+            /**
+             * Fetched At
+             * Format: date-time
+             * @description When Elexon was last read; results are as of then
+             */
+            fetched_at: string;
+            /** Gate Local */
+            gate_local: string;
+            /**
+             * Live Start
+             * Format: date
+             */
+            live_start: string;
+            /**
+             * Newest Actual
+             * @description Start of the newest published half-hour
+             */
+            newest_actual: string | null;
+            /**
+             * Newest Run
+             * @description Publish time of the newest WINDFOR run
+             */
+            newest_run: string | null;
+            /**
+             * Next Refresh
+             * Format: date-time
+             * @description When the next forecast run should have landed
+             */
+            next_refresh: string;
+            /**
+             * Stale
+             * @description Elexon could not be reached; showing the last good data
+             */
+            stale: boolean;
+        };
+        /** LiveSummaryOut */
+        LiveSummaryOut: {
+            /** Days */
+            days: components["schemas"]["LiveDay"][];
+            scoreboard: components["schemas"]["LiveScore"];
+            status: components["schemas"]["LiveStatus"];
         };
         /**
          * MatchingRule
@@ -1069,6 +1239,72 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["Envelope_HorizonOut_"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    live_day_api_live_day_get: {
+        parameters: {
+            query: {
+                /** @description Delivery day (UK local) */
+                delivery_date: string;
+                /** @description Auction whose gate sets the decision */
+                auction?: components["schemas"]["AuctionId"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Envelope_LiveDayOut_"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    live_summary_api_live_summary_get: {
+        parameters: {
+            query?: {
+                /** @description Auction whose gate sets the decision */
+                auction?: components["schemas"]["AuctionId"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Envelope_LiveSummaryOut_"];
                 };
             };
             /** @description Validation Error */

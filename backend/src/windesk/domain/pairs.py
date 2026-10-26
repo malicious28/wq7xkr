@@ -105,13 +105,22 @@ def hindsight_pairs(
 
 
 def decision_targets(
-    delivery_days: Sequence[date], gate_local: time, margin: timedelta
+    delivery_days: Sequence[date],
+    gate_local: time,
+    margin: timedelta,
+    not_after: datetime | None = None,
 ) -> pl.DataFrame:
-    """Hourly targets for each delivery day, all sharing that day's cutoff."""
+    """Hourly targets for each delivery day, all sharing that day's cutoff.
+
+    ``not_after`` caps the cutoff at "now" for live use: a delivery day whose
+    gate has not happened yet uses the newest run available right now.
+    """
     frames = []
     for d in delivery_days:
         day_start, day_end = settlement_day_bounds(d)
         cutoff = local_gate_to_utc(d, gate_local) - margin
+        if not_after is not None:
+            cutoff = min(cutoff, ensure_utc(not_after))
         frames.append(
             pl.DataFrame({"start_time": hourly_grid(day_start, day_end)}).with_columns(
                 pl.lit(cutoff.astimezone(UTC)).dt.cast_time_unit("us").alias("cutoff")
@@ -130,8 +139,10 @@ def decision_pairs(
     delivery_days: Sequence[date],
     gate_local: time,
     margin: timedelta = timedelta(0),
+    *,
+    not_after: datetime | None = None,
 ) -> pl.DataFrame:
-    targets = decision_targets(delivery_days, gate_local, margin)
+    targets = decision_targets(delivery_days, gate_local, margin, not_after)
     return _attach(select_asof(forecasts, targets), hourly_actuals)
 
 

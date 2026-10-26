@@ -82,6 +82,9 @@
 .nav {
   position: relative;
   z-index: 3; /* above the liquidGL canvas */
+  /* liquidGL sets pointer-events: none on its lens element (.navGlass), and
+     that inherits; without this the links cannot be clicked. */
+  pointer-events: auto;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -127,6 +130,23 @@
   display: none;
 }
 
+/* Fade whichever edge has tabs scrolled out of view (set by useTabStrip). */
+.links[data-fade-end='true'] {
+  mask-image: linear-gradient(to right, black calc(100% - 32px), transparent);
+}
+.links[data-fade-start='true'] {
+  mask-image: linear-gradient(to right, transparent, black 32px);
+}
+.links[data-fade-start='true'][data-fade-end='true'] {
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 32px,
+    black calc(100% - 32px),
+    transparent
+  );
+}
+
 .link {
   display: block;
   padding: 7px 12px;
@@ -144,6 +164,17 @@
 .link:hover {
   color: var(--text-primary);
   background: color-mix(in srgb, var(--text-primary) 7%, transparent);
+}
+
+.liveDot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 7px;
+  border-radius: 50%;
+  vertical-align: 1px;
+  background: var(--status-good);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--status-good) 25%, transparent);
 }
 
 .linkActive,
@@ -178,6 +209,13 @@
 .iconButton:hover {
   color: var(--text-primary);
   background: color-mix(in srgb, var(--text-primary) 8%, transparent);
+}
+
+@media (max-width: 1100px) {
+  .link {
+    padding: 7px 9px;
+    font-size: 13px;
+  }
 }
 
 @media (max-width: 860px) {

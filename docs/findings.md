@@ -53,3 +53,16 @@ Elexon's server-side `/forecast/generation/wind/latest` returns, for each hour, 
 - One late run: the 11:30 UTC run on 15 Jan arrived at 12:25.
 - FUELHH is complete: 48 periods every day, no duplicates, no republications, publication lag p50 30 min (max 145 min).
 - 20.5% of WINDFOR rows (7,801) restate hours that had already started when published. They are never used.
+
+## Out of sample in time: October 2026 (Try now)
+
+The ratio correction was designed and evaluated on January. The **Try now** page runs it unchanged on live data from 1 October 2026. Each day is scored with the run available at the N2EX gate and a correction fitted only on errors published before that gate.
+
+| 1–25 Oct 2026, N2EX gate, 600 hours | Elexon WINDFOR | Windesk corrected |
+|---|---|---|
+| Mean absolute error | 2,385 MW | 1,302 MW |
+| Mean bias | +2,205 MW | −167 MW |
+| Hours inside the 80% band | n/a | 79% |
+
+WINDFOR's over-forecast is larger in October than in January, and the correction removes almost all of it: 45% less error. The band, slightly too wide in January (86%), lands on target here. These numbers were taken on 26 October and will change as days are added.
+

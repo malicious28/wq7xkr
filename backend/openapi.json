@@ -792,6 +792,40 @@
         "title": "Envelope[HorizonOut]",
         "type": "object"
       },
+      "Envelope_LiveDayOut_": {
+        "additionalProperties": false,
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/LiveDayOut"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ResponseMeta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Envelope[LiveDayOut]",
+        "type": "object"
+      },
+      "Envelope_LiveSummaryOut_": {
+        "additionalProperties": false,
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/LiveSummaryOut"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ResponseMeta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Envelope[LiveSummaryOut]",
+        "type": "object"
+      },
       "Envelope_MetaOut_": {
         "additionalProperties": false,
         "properties": {
@@ -1288,6 +1322,361 @@
           "delay_min"
         ],
         "title": "LateRun",
+        "type": "object"
+      },
+      "LiveDay": {
+        "additionalProperties": false,
+        "properties": {
+          "cutoff": {
+            "format": "date-time",
+            "title": "Cutoff",
+            "type": "string"
+          },
+          "delivery_date": {
+            "format": "date",
+            "title": "Delivery Date",
+            "type": "string"
+          },
+          "elexon_mae_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Elexon Mae Mw"
+          },
+          "energy_actual_mwh": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Energy Actual Mwh"
+          },
+          "energy_elexon_mwh": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Energy Elexon Mwh"
+          },
+          "energy_p10_mwh": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Energy P10 Mwh"
+          },
+          "energy_windesk_mwh": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Energy Windesk Mwh"
+          },
+          "gate_passed": {
+            "description": "False: the gate is still ahead, so this may update",
+            "title": "Gate Passed",
+            "type": "boolean"
+          },
+          "hours_actual": {
+            "title": "Hours Actual",
+            "type": "integer"
+          },
+          "hours_forecast": {
+            "title": "Hours Forecast",
+            "type": "integer"
+          },
+          "hours_in_day": {
+            "description": "23, 24 or 25: clock-change days are short or long",
+            "title": "Hours In Day",
+            "type": "integer"
+          },
+          "run_publish_time": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Run Publish Time"
+          },
+          "status": {
+            "enum": [
+              "final",
+              "in_progress",
+              "upcoming"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "windesk_mae_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Windesk Mae Mw"
+          }
+        },
+        "required": [
+          "delivery_date",
+          "cutoff",
+          "gate_passed",
+          "run_publish_time",
+          "status",
+          "hours_in_day",
+          "hours_forecast",
+          "hours_actual",
+          "elexon_mae_mw",
+          "windesk_mae_mw",
+          "energy_elexon_mwh",
+          "energy_windesk_mwh",
+          "energy_p10_mwh",
+          "energy_actual_mwh"
+        ],
+        "title": "LiveDay",
+        "type": "object"
+      },
+      "LiveDayOut": {
+        "additionalProperties": false,
+        "properties": {
+          "actuals_half_hourly": {
+            "items": {
+              "$ref": "#/components/schemas/HalfHourActual"
+            },
+            "title": "Actuals Half Hourly",
+            "type": "array"
+          },
+          "day": {
+            "$ref": "#/components/schemas/LiveDay"
+          },
+          "points": {
+            "items": {
+              "$ref": "#/components/schemas/DecisionPoint"
+            },
+            "title": "Points",
+            "type": "array"
+          },
+          "status": {
+            "$ref": "#/components/schemas/LiveStatus"
+          }
+        },
+        "required": [
+          "status",
+          "day",
+          "points",
+          "actuals_half_hourly"
+        ],
+        "title": "LiveDayOut",
+        "type": "object"
+      },
+      "LiveScore": {
+        "additionalProperties": false,
+        "properties": {
+          "band_coverage": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Band Coverage"
+          },
+          "elexon_bias_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Elexon Bias Mw"
+          },
+          "elexon_mae_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Elexon Mae Mw"
+          },
+          "n_hours": {
+            "title": "N Hours",
+            "type": "integer"
+          },
+          "skill": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "1 - Windesk MAE / Elexon MAE",
+            "title": "Skill"
+          },
+          "windesk_bias_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Windesk Bias Mw"
+          },
+          "windesk_mae_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Windesk Mae Mw"
+          }
+        },
+        "required": [
+          "n_hours",
+          "elexon_mae_mw",
+          "windesk_mae_mw",
+          "skill",
+          "band_coverage",
+          "elexon_bias_mw",
+          "windesk_bias_mw"
+        ],
+        "title": "LiveScore",
+        "type": "object"
+      },
+      "LiveStatus": {
+        "additionalProperties": false,
+        "properties": {
+          "auction": {
+            "$ref": "#/components/schemas/AuctionId"
+          },
+          "fetched_at": {
+            "description": "When Elexon was last read; results are as of then",
+            "format": "date-time",
+            "title": "Fetched At",
+            "type": "string"
+          },
+          "gate_local": {
+            "title": "Gate Local",
+            "type": "string"
+          },
+          "live_start": {
+            "format": "date",
+            "title": "Live Start",
+            "type": "string"
+          },
+          "newest_actual": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Start of the newest published half-hour",
+            "title": "Newest Actual"
+          },
+          "newest_run": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Publish time of the newest WINDFOR run",
+            "title": "Newest Run"
+          },
+          "next_refresh": {
+            "description": "When the next forecast run should have landed",
+            "format": "date-time",
+            "title": "Next Refresh",
+            "type": "string"
+          },
+          "stale": {
+            "description": "Elexon could not be reached; showing the last good data",
+            "title": "Stale",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "fetched_at",
+          "newest_run",
+          "newest_actual",
+          "next_refresh",
+          "stale",
+          "auction",
+          "gate_local",
+          "live_start"
+        ],
+        "title": "LiveStatus",
+        "type": "object"
+      },
+      "LiveSummaryOut": {
+        "additionalProperties": false,
+        "properties": {
+          "days": {
+            "items": {
+              "$ref": "#/components/schemas/LiveDay"
+            },
+            "title": "Days",
+            "type": "array"
+          },
+          "scoreboard": {
+            "$ref": "#/components/schemas/LiveScore"
+          },
+          "status": {
+            "$ref": "#/components/schemas/LiveStatus"
+          }
+        },
+        "required": [
+          "status",
+          "days",
+          "scoreboard"
+        ],
+        "title": "LiveSummaryOut",
         "type": "object"
       },
       "MatchingRule": {
@@ -2568,6 +2957,108 @@
         "summary": "Horizon",
         "tags": [
           "analytics"
+        ]
+      }
+    },
+    "/api/live/day": {
+      "get": {
+        "description": "One live delivery day, hour by hour, in the same shape as the Decision view.",
+        "operationId": "live_day_api_live_day_get",
+        "parameters": [
+          {
+            "description": "Delivery day (UK local)",
+            "in": "query",
+            "name": "delivery_date",
+            "required": true,
+            "schema": {
+              "description": "Delivery day (UK local)",
+              "format": "date",
+              "title": "Delivery Date",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Auction whose gate sets the decision",
+            "in": "query",
+            "name": "auction",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/AuctionId",
+              "default": "n2ex_da",
+              "description": "Auction whose gate sets the decision"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_LiveDayOut_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Live Day",
+        "tags": [
+          "live"
+        ]
+      }
+    },
+    "/api/live/summary": {
+      "get": {
+        "description": "Every day since live_start: Elexon at the gate, Windesk's correction, and the outturn.",
+        "operationId": "live_summary_api_live_summary_get",
+        "parameters": [
+          {
+            "description": "Auction whose gate sets the decision",
+            "in": "query",
+            "name": "auction",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/AuctionId",
+              "default": "n2ex_da",
+              "description": "Auction whose gate sets the decision"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_LiveSummaryOut_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Live Summary",
+        "tags": [
+          "live"
         ]
       }
     },

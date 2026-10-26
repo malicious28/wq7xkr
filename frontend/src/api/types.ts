@@ -27,6 +27,11 @@ export type ModelScore = S['ModelScore']
 export type Ramps = S['RampsOut']
 export type RampEvent = S['RampEvent']
 export type Quality = S['QualityOut']
+export type LiveSummary = S['LiveSummaryOut']
+export type LiveStatus = S['LiveStatus']
+export type LiveDay = S['LiveDay']
+export type LiveDayDetail = S['LiveDayOut']
+export type LiveScore = S['LiveScore']
 
 export interface ResponseMeta {
   data_version: string

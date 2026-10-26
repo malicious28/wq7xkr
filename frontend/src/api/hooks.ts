@@ -11,6 +11,8 @@ import type {
   AuctionId,
   Decision,
   Horizon,
+  LiveDayDetail,
+  LiveSummary,
   MatchingRule,
   Meta,
   Models,
@@ -82,3 +84,27 @@ export const useRamps = (
 
 export const useQuality = (p: { first: string; last: string }) =>
   useEndpoint<Quality>('/api/quality', { ...p })
+
+/**
+ * Live mode polls: the server re-fetches Elexon when a new run is due, so
+ * checking every five minutes keeps the page within minutes of a new run.
+ */
+const LIVE_POLL_MS = 5 * 60_000
+
+export const useLiveSummary = (auction: AuctionId) =>
+  useQuery({
+    queryKey: ['/api/live/summary', auction],
+    queryFn: ({ signal }) => getJson<LiveSummary>('/api/live/summary', { auction }, signal),
+    placeholderData: keepPreviousData,
+    refetchInterval: LIVE_POLL_MS,
+  })
+
+export const useLiveDay = (delivery_date: string | undefined, auction: AuctionId) =>
+  useQuery({
+    queryKey: ['/api/live/day', delivery_date, auction],
+    queryFn: ({ signal }) =>
+      getJson<LiveDayDetail>('/api/live/day', { delivery_date, auction }, signal),
+    placeholderData: keepPreviousData,
+    refetchInterval: LIVE_POLL_MS,
+    enabled: Boolean(delivery_date),
+  })

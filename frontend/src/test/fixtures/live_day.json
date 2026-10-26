@@ -1,0 +1,305 @@
+{
+  "data": {
+    "status": {
+      "fetched_at": "2026-10-25T23:53:20.999365Z",
+      "newest_run": "2026-10-25T22:30:00Z",
+      "newest_actual": "2026-10-25T23:00:00Z",
+      "next_refresh": "2026-10-26T00:23:20.999365Z",
+      "stale": false,
+      "auction": "n2ex_da",
+      "gate_local": "09:50",
+      "live_start": "2026-10-01"
+    },
+    "day": {
+      "delivery_date": "2026-10-27",
+      "cutoff": "2026-10-25T23:53:20.999365Z",
+      "gate_passed": false,
+      "run_publish_time": "2026-10-25T22:30:00Z",
+      "status": "upcoming",
+      "hours_in_day": 24,
+      "hours_forecast": 22,
+      "hours_actual": 0,
+      "elexon_mae_mw": null,
+      "windesk_mae_mw": null,
+      "energy_elexon_mwh": 480337.0,
+      "energy_windesk_mwh": 388712.2608841395,
+      "energy_p10_mwh": 369601.60000000003,
+      "energy_actual_mwh": null
+    },
+    "points": [
+      {
+        "start_time": "2026-10-27T00:00:00Z",
+        "lead_h": 25.5,
+        "forecast_mw": 22243.0,
+        "debiased_mw": 20148.0,
+        "ratio_mw": 18000.126617033282,
+        "band_low_mw": 17364.8,
+        "band_high_mw": 22416.9,
+        "actual_mw": null,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-10-27T01:00:00Z",
+        "lead_h": 26.5,
+        "forecast_mw": 22226.0,
+        "debiased_mw": 20131.0,
+        "ratio_mw": 17986.369383184898,
+        "band_low_mw": 17347.8,
+        "band_high_mw": 22399.9,
+        "actual_mw": null,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-10-27T02:00:00Z",
+        "lead_h": 27.5,
+        "forecast_mw": 22220.0,
+        "debiased_mw": 20125.0,
+        "ratio_mw": 17981.51388888547,
+        "band_low_mw": 17341.8,
+        "band_high_mw": 22393.9,
+        "actual_mw": null,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-10-27T03:00:00Z",
+        "lead_h": 28.5,
+        "forecast_mw": 22319.0,
+        "debiased_mw": 20224.0,
+        "ratio_mw": 18061.629544826046,
+        "band_low_mw": 17440.8,
+        "band_high_mw": 22492.9,
+        "actual_mw": null,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-10-27T04:00:00Z",
+        "lead_h": 29.5,
+        "forecast_mw": 22303.0,
+        "debiased_mw": 20208.0,
+        "ratio_mw": 18048.68156002757,
+        "band_low_mw": 17424.8,
+        "band_high_mw": 22476.9,
+        "actual_mw": null,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-10-27T05:00:00Z",
+        "lead_h": 30.5,
+        "forecast_mw": 22217.0,
+        "debiased_mw": 20122.0,
+        "ratio_mw": 17979.086141735756,
+        "band_low_mw": 17338.8,
+        "band_high_mw": 22390.9,
+        "actual_mw": null,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-10-27T06:00:00Z",
+        "lead_h": 31.5,
+        "forecast_mw": 22240.0,
+        "debiased_mw": 20019.25,
+        "ratio_mw": 17997.698869883567,
+        "band_low_mw": 17606.9,
+        "band_high_mw": 22106.1,
+        "actual_mw": null,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-10-27T07:00:00Z",
+        "lead_h": 32.5,
+        "forecast_mw": 22373.0,
+        "debiased_mw": 20152.25,
+        "ratio_mw": 18105.32899352091,
+        "band_low_mw": 17739.9,
+        "band_high_mw": 22239.1,
+        "actual_mw": null,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-10-27T08:00:00Z",
+        "lead_h": 33.5,
+        "forecast_mw": 22530.0,
+        "debiased_mw": 20309.25,
+        "ratio_mw": 18232.38109435597,
+        "band_low_mw": 17896.9,
+        "band_high_mw": 22396.1,
+        "actual_mw": null,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-10-27T09:00:00Z",
+        "lead_h": 34.5,
+        "forecast_mw": 22489.0,
+        "debiased_mw": 20268.25,
+        "ratio_mw": 18199.20188330987,
+        "band_low_mw": 17855.9,
+        "band_high_mw": 22355.1,
+        "actual_mw": null,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-10-27T10:00:00Z",
+        "lead_h": 35.5,
+        "forecast_mw": 22232.0,
+        "debiased_mw": 20011.25,
+        "ratio_mw": 17991.22487748433,
+        "band_low_mw": 17598.9,
+        "band_high_mw": 22098.1,
+        "actual_mw": null,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-10-27T11:00:00Z",
+        "lead_h": 36.5,
+        "forecast_mw": 21900.0,
+        "debiased_mw": 19679.25,
+        "ratio_mw": 17722.554192915923,
+        "band_low_mw": 17266.9,
+        "band_high_mw": 21766.1,
+        "actual_mw": null,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-10-27T12:00:00Z",
+        "lead_h": 37.5,
+        "forecast_mw": 21642.0,
+        "debiased_mw": 18997.25,
+        "ratio_mw": 17513.767938040473,
+        "band_low_mw": 16791.4,
+        "band_high_mw": 22208.5,
+        "actual_mw": null,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-10-27T13:00:00Z",
+        "lead_h": 38.5,
+        "forecast_mw": 21503.0,
+        "debiased_mw": 18858.25,
+        "ratio_mw": 17401.282320103703,
+        "band_low_mw": 16652.4,
+        "band_high_mw": 22069.5,
+        "actual_mw": null,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-10-27T14:00:00Z",
+        "lead_h": 39.5,
+        "forecast_mw": 21530.0,
+        "debiased_mw": 18885.25,
+        "ratio_mw": 17423.132044451133,
+        "band_low_mw": 16679.4,
+        "band_high_mw": 22096.5,
+        "actual_mw": null,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-10-27T15:00:00Z",
+        "lead_h": 40.5,
+        "forecast_mw": 21616.0,
+        "debiased_mw": 18971.25,
+        "ratio_mw": 17492.727462742947,
+        "band_low_mw": 16765.4,
+        "band_high_mw": 22182.5,
+        "actual_mw": null,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-10-27T16:00:00Z",
+        "lead_h": 41.5,
+        "forecast_mw": 21575.0,
+        "debiased_mw": 18930.25,
+        "ratio_mw": 17459.548251696848,
+        "band_low_mw": 16724.4,
+        "band_high_mw": 22141.5,
+        "actual_mw": null,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-10-27T17:00:00Z",
+        "lead_h": 42.5,
+        "forecast_mw": 21411.0,
+        "debiased_mw": 18766.25,
+        "ratio_mw": 17326.831407512458,
+        "band_low_mw": 16560.4,
+        "band_high_mw": 21977.5,
+        "actual_mw": null,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-10-27T18:00:00Z",
+        "lead_h": 43.5,
+        "forecast_mw": 21236.0,
+        "debiased_mw": 18810.5,
+        "ratio_mw": 17185.21282377911,
+        "band_low_mw": 15095.0,
+        "band_high_mw": 21441.5,
+        "actual_mw": null,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-10-27T19:00:00Z",
+        "lead_h": 44.5,
+        "forecast_mw": 21081.0,
+        "debiased_mw": 18655.5,
+        "ratio_mw": 17059.77922104386,
+        "band_low_mw": 14940.0,
+        "band_high_mw": 21286.5,
+        "actual_mw": null,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-10-27T20:00:00Z",
+        "lead_h": 45.5,
+        "forecast_mw": 20867.0,
+        "debiased_mw": 18441.5,
+        "ratio_mw": 16886.599924364225,
+        "band_low_mw": 14726.0,
+        "band_high_mw": 21072.5,
+        "actual_mw": null,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-10-27T21:00:00Z",
+        "lead_h": 46.5,
+        "forecast_mw": 20584.0,
+        "debiased_mw": 18158.5,
+        "ratio_mw": 16657.582443241157,
+        "band_low_mw": 14443.0,
+        "band_high_mw": 20789.5,
+        "actual_mw": null,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-10-27T22:00:00Z",
+        "lead_h": null,
+        "forecast_mw": null,
+        "debiased_mw": null,
+        "ratio_mw": null,
+        "band_low_mw": null,
+        "band_high_mw": null,
+        "actual_mw": null,
+        "actual_known_at_cutoff": false
+      },
+      {
+        "start_time": "2026-10-27T23:00:00Z",
+        "lead_h": null,
+        "forecast_mw": null,
+        "debiased_mw": null,
+        "ratio_mw": null,
+        "band_low_mw": null,
+        "band_high_mw": null,
+        "actual_mw": null,
+        "actual_known_at_cutoff": false
+      }
+    ],
+    "actuals_half_hourly": []
+  },
+  "meta": {
+    "data_version": "c589a65ee65e",
+    "generated_at": "2026-10-25T23:53:24.752972Z",
+    "params": {
+      "delivery_date": "2026-10-27",
+      "auction": "n2ex_da"
+    }
+  }
+}
