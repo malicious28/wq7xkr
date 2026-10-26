@@ -2,7 +2,7 @@
 
 A web app for a UK utility's day-ahead trading desk. It shows **the national wind forecast as it stood at their auction gate closure**, and **how accurate that forecast has been**, so the desk can buy the power it needs with the forecast error accounted for.
 
-**Live app:** _to be added after the Heroku deploy (see [Deploy](#deploy))_
+**Live app:** https://wq7xkr-pink.vercel.app (hosted on Vercel; the first visit after a quiet period takes a few seconds while the container starts). Try now: https://wq7xkr-pink.vercel.app/live
 
 ![Overview](docs/images/overview.png)
 
@@ -174,7 +174,7 @@ Interactive docs at `/docs`. Every JSON response is `{ data, meta: { data_versio
 
 The app ships as one Docker image ([ADR 0005](docs/adr/0005-deployment-single-container.md)), and the same image runs on either platform.
 
-**Vercel** (the live deployment) runs it with the Container runtime. `vercel.json` declares the root `Dockerfile` as the only service and routes all traffic to it. Import the repository, then set one environment variable: `PORT=8000`. The image listens on 8000 because it runs as a non-root user, while Vercel's default port is 80. Idle instances scale to zero after 5 minutes, so the first request after a quiet period starts a container, which takes a few seconds.
+**Vercel** ([the live deployment](https://wq7xkr-pink.vercel.app)) runs it with the Container runtime. `vercel.json` declares the root `Dockerfile` as the only service and routes all traffic to it. Import the repository, then set one environment variable: `PORT=8000`. The image listens on 8000 because it runs as a non-root user, while Vercel's default port is 80. Idle instances scale to zero after 5 minutes, so the first request after a quiet period starts a container, which takes a few seconds.
 
 **Heroku** uses the container stack through `heroku.yml`:
 
